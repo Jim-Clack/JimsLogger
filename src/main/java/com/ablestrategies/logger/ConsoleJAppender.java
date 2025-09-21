@@ -11,7 +11,7 @@ public class ConsoleJAppender implements IAppender {
     }
 
     public void append(Event logEvent) {
-        System.console().printf(textFormatter.format(logEvent));
+        System.out.println(textFormatter.format(logEvent));
     }
 
 }

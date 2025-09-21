@@ -38,8 +38,8 @@ public class Event {
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer("LogEvent[");
-        buffer.append("level=").append(level).append(", class=").append(className)
-                .append(", method=").append(methodName).append("]");
+        buffer.append("level=").append(level.name()).append(", class=").append(className)
+                .append(", method=").append(methodName).append(", message=").append(message).append("]");
         return buffer.toString();
     }
 

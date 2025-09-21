@@ -36,9 +36,10 @@ public class AppenderThread extends Thread {
         while(!interrupted()) {
             try {
                 Event event = blockingQueue.take();
-                appendEvent(event);
+                writeToAppenders(event);
             } catch (InterruptedException e) {
                 // ignore timeouts, etc.
+                System.out.println("\nJLogget waiting: " + e.getMessage());
             }
         }
         interrupt();
@@ -65,6 +66,10 @@ public class AppenderThread extends Thread {
                 appenders.put(className, appender);
             } catch (ClassNotFoundException | NullPointerException | NoSuchMethodException |
                      InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                if(className.equals("ConsoleJAppender")) {
+                    appenders.put(className, new ConsoleJAppender(config)); // in case the naked .class is missing
+                    continue;
+                }
                 startupErrors.append("\n").append(e.getMessage()).append(" ").append(className);
             }
         }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class LogManager {
 
-    private LogManager instance = null;
+    private static LogManager instance = null;
 
     private final Level defaultLevel;
 
@@ -21,7 +21,7 @@ public class LogManager {
         this.appenderThread.start();
     }
 
-    public LogManager Instance() {
+    public static LogManager getInstance() {
         if (instance == null) {
             instance = new LogManager();
         }
