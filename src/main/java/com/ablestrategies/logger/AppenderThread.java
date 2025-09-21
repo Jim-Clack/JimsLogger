@@ -59,11 +59,7 @@ public class AppenderThread extends Thread {
         String[] appenderClassNames = appendersString.split("[, ]");
         for(String className : appenderClassNames) {
             try {
-                Class<?> clazz = classLoader.loadClass(className);
-                Class<?>[] params = new Class[]{IConfiguration.class};
-                Constructor<IAppender> ctor = (Constructor<IAppender>) clazz.getConstructor(params);
-                IAppender appender = ctor.newInstance(config);
-                appenders.put(className, appender);
+                addAppenderToMap(config, className, classLoader);
             } catch (ClassNotFoundException | NullPointerException | NoSuchMethodException |
                      InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 if(className.equals("ConsoleJAppender")) {
@@ -73,6 +69,14 @@ public class AppenderThread extends Thread {
                 startupErrors.append("\n").append(e.getMessage()).append(" ").append(className);
             }
         }
+    }
+
+    private void addAppenderToMap(IConfiguration config, String className, ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        Class<?> clazz = classLoader.loadClass(className);
+        Class<?>[] params = new Class[]{IConfiguration.class};
+        Constructor<IAppender> ctor = (Constructor<IAppender>) clazz.getConstructor(params);
+        IAppender appender = ctor.newInstance(config);
+        appenders.put(className, appender);
     }
 
 }
