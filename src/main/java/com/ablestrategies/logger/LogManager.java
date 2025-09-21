@@ -9,7 +9,9 @@ public class LogManager {
 
     private final Level defaultLevel;
 
-    private Map<String, Logger> loggers = new HashMap<>();
+    private final Map<String, Logger> loggers = new HashMap<>();
+
+    private final Map<String, Level> history = new HashMap<>();
 
     private final AppenderThread appenderThread;
 
@@ -28,25 +30,55 @@ public class LogManager {
         return instance;
     }
 
+    /**
+     * Get an existing Logger or create it if it does not exist, named per the calling package and class.
+     * @return corresponding Logger
+     */
     public Logger getLogger() {
-        String packageClassName = Thread.currentThread().getStackTrace()[2].getClassName();
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        int elementIndex =  1;
+        while(elementIndex < stackTrace.length-1
+                && stackTrace[elementIndex].getClassName().startsWith("com.ablestrategies.logger")) {
+            elementIndex++;
+        }
+        String packageClassName = stackTrace[elementIndex].getClassName();
         return getLogger(packageClassName);
     }
 
+    /**
+     * Get an existing Logger or create it if it does not exist.
+     * @param packageClass Class to use as the Logger name. ("package.class" as returned by clazz.getName())
+     * @return corresponding Logger
+     */
     public Logger getLogger(Class<?> packageClass) {
         String packageClassName = packageClass.getName();
         return getLogger(packageClassName);
     }
 
+    /**
+     * Get an existing Logger or create it if it does not exist.
+     * @param packageClassName partial or full package name, optionally with the class, or arbitrary Logger name
+     * @return corresponding Logger
+     */
+    @SuppressWarnings("all")
     public Logger getLogger(String packageClassName) {
         if (packageClassName == null) {
-            packageClassName = Thread.currentThread().getStackTrace()[2].getClassName();
+            return getLogger();
         }
-        Logger logger = new Logger(this, packageClassName, defaultLevel);
-        loggers.put(packageClassName, logger);
+        Logger logger = loggers.get(packageClassName);
+        if (logger == null) {
+            logger = new Logger(this, packageClassName, defaultLevel);
+            applyHistory(logger);
+            loggers.put(packageClassName, logger);
+        }
         return logger;
     }
 
+    /**
+     * Set the log level of certain Loggers specified by their partial or full packageClassName.
+     * @param level Level to set the Loggers to.
+     * @param packageClassName Partial or full name of target loggers.
+     */
     public void setLevel(Level level, String packageClassName) {
         if(packageClassName == null) {
             packageClassName = "";
@@ -55,11 +87,20 @@ public class LogManager {
         loggers.entrySet().stream()
             .filter(entry -> entry.getKey().startsWith(pkgClassName))
                 .forEach(entry -> entry.getValue().setLogLevel(level));
+        history.put(packageClassName, level);
     }
 
     public void write(Level level, String message, Throwable throwable) {
         Event event = new Event(level, message, throwable);
         appenderThread.appendEvent(event);
+    }
+
+    private void applyHistory(Logger logger) {
+        for(Map.Entry<String, Level> entry : history.entrySet()) {
+            if(logger.getPackageClassName().startsWith(entry.getKey())) {
+                logger.setLogLevel(entry.getValue());
+            }
+        }
     }
 
 }

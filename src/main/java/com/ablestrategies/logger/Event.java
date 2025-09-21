@@ -22,7 +22,13 @@ public class Event {
         this.throwable = throwable;
         this.timestamp = LocalDateTime.now();
         this.threadName = Thread.currentThread().getName();
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[2];
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        int elementIndex = 1;
+        while(elementIndex < stackTrace.length-1
+                && stackTrace[elementIndex].getClassName().startsWith("com.ablestrategies.logger.")) {
+            elementIndex++;
+        }
+        StackTraceElement stackTraceElement = stackTrace[elementIndex];
         this.className = stackTraceElement.getClassName();
         this.methodName = stackTraceElement.getMethodName();
     }
