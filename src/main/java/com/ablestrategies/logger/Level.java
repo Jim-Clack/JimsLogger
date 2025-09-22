@@ -37,10 +37,7 @@ public enum Level {
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer("LogLevel[");
-        buffer.append("name=").append(this.name()).append(", value=")
-                .append(this.getValue()).append("]");
-        return buffer.toString();
+        return "LogLevel[name=" + this.name() + ", value=" + this.getValue() + "]";
     }
 
 }

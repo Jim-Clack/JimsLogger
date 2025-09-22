@@ -11,24 +11,28 @@ public class LogEvent {
     final String threadName;
     final String className;
     final String methodName;
+    final Object[] arguments;
 
-    public LogEvent(Level level, String message, Throwable throwable) {
+    public LogEvent(Level level, String message, Object... args) {
         this.level = level;
         this.message = message;
-        this.throwable = throwable;
         this.timestamp = LocalDateTime.now();
         this.threadName = Thread.currentThread().getName();
+        this.arguments = args;
         StackTraceElement stackTraceElement = Support.getCallerStackTraceElement();
         this.className = stackTraceElement.getClassName();
         this.methodName = stackTraceElement.getMethodName();
+        if(arguments != null && arguments.length > 0 && arguments[0] instanceof Throwable) {
+            this.throwable = (Throwable)arguments[0];
+        } else {
+            this.throwable = null;
+        }
     }
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer("LogEvent[");
-        buffer.append("level=").append(level.name()).append(", class=").append(className)
-                .append(", method=").append(methodName).append(", message=").append(message).append("]");
-        return buffer.toString();
+        return "LogEvent[level=" + level.name() +
+                ", class=" + className + ", method=" + methodName + ", message=" + message + "]";
     }
 
 }

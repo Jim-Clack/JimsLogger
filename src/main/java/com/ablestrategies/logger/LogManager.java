@@ -154,8 +154,8 @@ public class LogManager {
         historyOfSetLevel.put(packageClassName, level);
     }
 
-    public void write(Level level, String message, Throwable throwable) {
-        LogEvent event = new LogEvent(level, message, throwable);
+    public void write(Level level, String message, Object... args) {
+        LogEvent event = new LogEvent(level, message, args);
         appenderThread.appendEvent(event);
     }
 

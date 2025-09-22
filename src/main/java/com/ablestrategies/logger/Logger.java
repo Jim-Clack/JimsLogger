@@ -32,6 +32,15 @@ package com.ablestrategies.logger;
  *   Logger.WARN("Msg 4");   // Will bt logged because Level Warn is higher than Diag
  *   Logger.ERROR("Msg 5");  // Will bt logged because Level Error is higher than Diag
  * <p>
+ * There are 3 ways of calling each log() or shortcut method:
+ * <p>
+ *   1. log(Level.Xxx, message);                 -OR-     XXXX(message);
+ *   2. log(Level.Xxx, message, exception);      -OR-     XXXX(message, exception);
+ *   3. log(Level.Xxx, message, arg1, argN..);   -OR-     XXXX(message, arg1, argN..);
+ * <p>
+ * Note that you pass an exception as arg1 using form (3) above, but consider that the
+ * exception will be argument number 1 so the first argument following that will be 2.
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 public class Logger {
@@ -54,14 +63,18 @@ public class Logger {
         }
     }
 
-    public void log(Level level, String message, Throwable throwable) {
+    public void log(Level level, String message, Object... args) {
         if(level.getValue() >= this.level.getValue()) {
-            logManager.write(level, message, throwable);
+            logManager.write(level, message, args);
         }
     }
 
-    String getPackageClassName() {
+    public String getPackageClassName() {
         return packageClassName;
+    }
+
+    public Level getLogLevel() {
+        return level;
     }
 
     void setLogLevel(Level level) {
@@ -70,23 +83,20 @@ public class Logger {
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer("Logger[");
-        buffer.append("name=").append(packageClassName).append(", level=")
-                .append(level).append("]");
-        return buffer.toString();
+        return "Logger[name=" + packageClassName + ", level=" + level + "]";
     }
 
     //////////////////////////// Shortcut Methods ////////////////////////////
 
     public void TRACE(String message) { log(Level.Trace, message); }
-    public void TRACE(String message, Throwable throwable) { log(Level.Trace, message, throwable); }
+    public void TRACE(String message, Object... args) { log(Level.Trace, message, args); }
     public void DIAG(String message) { log(Level.Diag, message); }
-    public void DIAG(String message, Throwable throwable) { log(Level.Diag, message, throwable); }
+    public void DIAG(String message, Object... args) { log(Level.Diag, message, args); }
     public void INFO(String message) { log(Level.Info, message); }
-    public void INFO(String message, Throwable throwable) { log(Level.Info, message, throwable); }
+    public void INFO(String message, Object... args) { log(Level.Info, message, args); }
     public void WARN(String message) { log(Level.Warn, message); }
-    public void WARN(String message, Throwable throwable) { log(Level.Warn, message, throwable); }
+    public void WARN(String message, Object... args) { log(Level.Warn, message, args); }
     public void ERROR(String message) { log(Level.Error, message); }
-    public void ERROR(String message, Throwable throwable) { log(Level.Error, message, throwable); }
+    public void ERROR(String message, Object... args) { log(Level.Error, message, args); }
 
 }

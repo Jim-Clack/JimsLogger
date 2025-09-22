@@ -5,7 +5,7 @@ public class ConsoleAppender implements IAppender {
     private final TextFormatter textFormatter;
 
     public ConsoleAppender(IConfiguration config) {
-        String prefix = config.getString("jlogger.console.prefix", "@X [@L] @C: ");
+        String prefix = config.getString("jlogger.console.prefix", "@U @c [@L]: ");
         textFormatter = new TextFormatter(prefix);
 
     }

@@ -5,6 +5,8 @@ package com.ablestrategies.logger;
  */
 class Support {
 
+    public static int MAX_ABBREV_LGT = 16;
+
     static StackTraceElement getCallerStackTraceElement() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         int elementIndex =  1; // skip over stackDump()
@@ -22,8 +24,11 @@ class Support {
      * @return Abbreviated version, still ending with the original dot.
      */
     static String abbreviate(String dottedString) {
+        if(dottedString.length() > MAX_ABBREV_LGT*2) {
+            dottedString = dottedString.replaceAll("([^.])[aeiou]", "$1");
+        }
         int nextDotPosition = dottedString.indexOf(".");
-        while(dottedString.length() > 16) {
+        while(dottedString.length() > MAX_ABBREV_LGT) {
             if(nextDotPosition > 0) {
                 dottedString = dottedString.substring(0, nextDotPosition - 1) + dottedString.substring(nextDotPosition);
             }
@@ -33,6 +38,36 @@ class Support {
             }
         }
         return dottedString;
+    }
+
+    /**
+     * Assemble a String containing the caller's "package.class.method" from a LogEventGetter.
+     * @param getter where to find the caller data
+     * @param showPackage true to prepend the package name
+     * @param showClass true to include the class name
+     * @param abbreviate true to abbreviate the package name
+     * @return the desired path as a dot-delimited string
+     */
+    static String assembleCallerPath(LogEventGetter getter, boolean showPackage, boolean showClass, boolean abbreviate) {
+        String result = getter.getClassName();
+        String packageName = "";
+        int lastDotPosition = result.lastIndexOf(".");
+        if(lastDotPosition > 0) {
+            packageName =  result.substring(0, lastDotPosition + 1);
+            result = result.substring(lastDotPosition + 1);
+        }
+        if(!showPackage) {
+            packageName = "";
+        }
+        if(abbreviate) {
+            packageName = Support.abbreviate(packageName);
+        }
+        String methodName = getter.getMethodName();
+        result = packageName + result + "."  + methodName;
+        if(!showClass) {
+            result = methodName;
+        }
+        return result;
     }
 
 }

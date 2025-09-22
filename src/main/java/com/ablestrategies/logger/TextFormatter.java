@@ -15,33 +15,31 @@ package com.ablestrategies.logger;
  *   B     boolean ad True or False
  *   i     integer or long
  *   h     integer or long in hexadecimal
- *   f     floating point or double in regular form
- *   F     floating point or double in exponential notation
+ *   f     floating point or double
  *   d     date and time in local format
  *   D     date and time in UTC format
- *   p     pointer/handle to object/array
+ *   e     exception message
+ *   E     exception message and trace
+ *   t     object toString()
  *   o     object/array dump, shallow
  *   O     object/array dump, deep (not yet implemented)
  * <p>
- * B) The following are not passed as vararg values
+ * B) The following are NOT passed as vararg values
  *   l     LogLevel value
  *   L     LogLevel name
  *   d     date short local form
  *   D     date long UTC form
  *   t     time short local form
  *   T     time long UTC form
- *   x     date and time short local form
- *   X     date and time UTC form
+ *   u     date and time short local form
+ *   U     date and time UTC form
  *   e     exception message
  *   E     exception message and trace
  *   m     calling method name
- *   M     calling method name, with line number if DEBUG
- *   c     calling class name
- *   C     calling class.method name, with line number if DEBUG
- *   p     calling package.class name
- *   P     calling package.class.method name, w line number if DEBUG
- *   h     thread number
- *   H     thread name
+ *   c     calling class.method name
+ *   p     calling package.class.method name
+ *   p     calling package.class.method name (package not abbreviated)
+ *   h     thread name
  *   @     two @-signs (@@) are escaped to a single @
  * <p>
  * If a value is null then it will be replaced with (null)
@@ -55,7 +53,7 @@ public class TextFormatter {
 
     private LogEventGetter getter;
 
-    private String prefix = "@X [@L] @C: ";
+    private String prefix = "@U [@L] @p: ";
 
     public TextFormatter(String prefix) {
         this.prefix = prefix;
@@ -63,33 +61,87 @@ public class TextFormatter {
 
     public String format(LogEvent logEvent) {
         getter = new LogEventGetter(logEvent);
-        return logEvent.toString(); // TODO
+        String message = prefix + getter.getMessage();
+        StringBuilder buffer = new StringBuilder();
+        int messageLgt = message.length();
+        int messagePos = 0;
+        int argNum = 0;
+        while(messagePos < messageLgt) {
+            if (message.charAt(messagePos) == '@') {
+                char ch = message.charAt(++messagePos);
+                if(Character.isDigit(ch)) {
+                    argNum = ch - '0';
+                    ch = message.charAt(++messagePos);
+                }
+                buffer.append(expandSymbol(getter, message.charAt(messagePos), argNum));
+            } else {
+                buffer.append(message.charAt(messagePos));
+            }
+            messagePos++;
+        }
+        return buffer.toString();
     }
 
-    private String assembleCallerPath(LogEvent logEvent, boolean abbreviated,
-                                     boolean showPackage, boolean showClass, boolean showLineNumbers) {
-        String result = getter.getClassName();
-        String packageName = "";
-        int lastDotPosition = result.lastIndexOf(".");
-        if(lastDotPosition > 0) {
-            packageName =  result.substring(0, lastDotPosition + 1);
-            result = result.substring(lastDotPosition + 1);
+    private String expandSymbol(LogEventGetter getter, char symbol, int argNum) {
+        if(argNum > 0) {
+            return expandMessageArg(getter, symbol, argNum);
+        } else {
+            return expandEventValue(getter, symbol);
         }
-        if(!showPackage) {
-            packageName = "";
-        }
-        if(abbreviated) {
-            packageName = Support.abbreviate(packageName);
-        }
-        String methodName = getter.getMethodName();
-        result = packageName + result + "."  + methodName;
-        if(!showClass) {
-            result = methodName;
-        }
-        if(showLineNumbers) {
-            // TODO
-        }
-        return result;
+    }
+
+    /**
+     * Perform symbol replacement from varargs argument list.
+     * @param getter access to the LogEvent.
+     * @param symbol symbol from message
+     * @param argNum one-based argument number
+     * @return replacement string
+     */
+    private String expandMessageArg(LogEventGetter getter, char symbol, int argNum) {
+        return switch (symbol) {
+            case 's' -> getter.getArgumentAsString(argNum);
+            case 'b' -> getter.getArgumentAsBoolean(argNum).substring(0, 1);
+            case 'B' -> getter.getArgumentAsBoolean(argNum);
+            case 'i' -> getter.getArgumentAsLong(argNum);
+            case 'h' -> getter.getArgumentAsHex(argNum);
+            case 'f' -> getter.getArgumentAsDouble(argNum);
+            case 'd' -> getter.getArgumentAsLocalDateTime(argNum);
+            case 'D' -> getter.getArgumentAsUTCDateTime(argNum);
+            case 'e' -> getter.getArgumentAsExceptionMessage(argNum);
+            case 'E' -> getter.getArgumentAsExceptionStackDump(argNum);
+            case 't' -> getter.getArgumentAsPointer(argNum);
+            case 'o' -> getter.getArgumentAsObjectOrArray(argNum);
+            case 'O' -> getter.getArgumentAsObjectOrArray(argNum); // TODO
+            default -> "###";
+        };
+    }
+
+    /**
+     * Perform symbol replacement on Event values.
+     * @param getter access to the LogEvent.
+     * @param symbol symbol from message
+     * @return replacement string
+     */
+    private String expandEventValue(LogEventGetter getter, char symbol) {
+        return switch (symbol) {
+            case 'l' -> Long.toString(getter.getLevel().getValue());
+            case 'L' -> getter.getLevel().name();
+            case 'd' -> getter.getTimestampLocalDate();
+            case 'D' -> getter.getTimestampUTCDate();
+            case 't' -> getter.getTimestampLocalTime();
+            case 'T' -> getter.getTimestampUTCTime();
+            case 'u' -> getter.getTimestampLocalDateTime();
+            case 'U' -> getter.getTimestampUTCDateTime();
+            case 'e' -> getter.getThrowableMessage();
+            case 'E' -> getter.getThrowableStackDump();
+            case 'm' -> Support.assembleCallerPath(getter, false, false, true);
+            case 'c' -> Support.assembleCallerPath(getter, false, true, true);
+            case 'p' -> Support.assembleCallerPath(getter, true, true, true);
+            case 'P' -> Support.assembleCallerPath(getter, true, true, false);
+            case 'h' -> getter.getThreadName();
+            case '@' -> "@";
+            default -> "###";
+        };
     }
 
 }
