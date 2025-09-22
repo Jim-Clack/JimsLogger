@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Works very well. Fixed some setLevel() bugs, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventGetter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LoggingSupportTest.java" afterDir="false" />
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Works very well. Minor refactoring, added comments, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleJAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Logger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +146,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="16684000" />
+      <workItem from="1758468451225" duration="18656000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -184,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758483427529</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Works very well. Minor refactoring, added comments, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters.">
+      <option name="closed" value="true" />
+      <created>1758541316623</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758541316623</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +202,8 @@
     <MESSAGE value="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either" />
     <MESSAGE value="Third Commit - Fully Functional, BUT: Needs Formatters, Does not shut down AppenderThread yet, Needs Unit Tests, Docs, and More Appenders" />
     <MESSAGE value="Works very well. Fixed some setLevel() bugs, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters." />
-    <option name="LAST_COMMIT_MESSAGE" value="Works very well. Fixed some setLevel() bugs, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters." />
+    <MESSAGE value="Works very well. Minor refactoring, added comments, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters." />
+    <option name="LAST_COMMIT_MESSAGE" value="Works very well. Minor refactoring, added comments, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -224,7 +221,7 @@
       <configuration name="Application">
         <watch expression="packageClassName" />
       </configuration>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" line="109">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" line="151">
         <watch expression="pkgClassName" />
       </inline-watch>
     </watches-manager>

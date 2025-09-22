@@ -4,6 +4,48 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * LogManager - Provides the core functionality.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * About Loggers and their usage.
+ *
+ * Do not instantiate Loggers yourself, as they will not function properly. To create one,
+ * call LogManager.getLogger() in one of the following ways:
+ *
+ *   LogManager.getLogger();                    Gets the Logger for the current class
+ *   LogManager.getLogger(this.getClass());     Gets the Logger for the current class
+ *   LogManager.getLogger(Main.getClass());     Gets the Logger for the Main class
+ *   LogManager.getLogger("com.xyz.Main");      Gets the Logger for class "com.xyz.Main"
+ *   LogManager.getLogger("com.xyz");           Gets the Logger for classes in "com.xyz"
+ *   LogManager.getLogger("Issue231");          Gets the Logger for tracking issue 231
+ *
+ * The Logger that is returned from that call (above) is to be used for logging in that
+ * class. However, you can create multiple Loggers, if desired, for one class, or you can
+ * create a Logger to use for multiple classes. The name of the Logger is not required to
+ * be the same as the class. That is merely a convention to help you to track log events
+ * from the log output back to the class where they originated. (hence "Issue231" above)
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Hierarchy of LogManager.setLevel() calls.
+ *
+ * The setLevel() calls are apply in a temporal hierarchy - one after the other in the
+ * order in which they are called. For instance, you may have classes named com.xyz.Main,
+ * com.xyz.support.Reports, and com.xyz.support.DBO. If you wanted to track only Warnings
+ * and Errors in the libraries, but wanted to log Info for Main and Reports, but needed
+ * Diag level logging in DBO, you could put this code into Main:
+ *
+ *   LogManager.setLevel(LogLevel.Warn, "");
+ *   LogManager.setLevel(LogLevel.Info, "com.xyz");
+ *   LogManager.setLevel(LogLevel.Diag, "com.xyz.DBO");
+ *
+ * Of course, this assumes that you used the default (no argument) LogManager.getLogger()
+ * to get your Loggers, so they would be named according to their package and class names.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  *
  * Description of setLevel() and related methods.
  *
@@ -25,11 +67,11 @@ import java.util.Map;
  *     previous setLevel() calls.
  *
  * In other words, setLevel() works on two fronts. When it is called, it sets the level
- * of every existing Logger and keeps track of this in a map named historyOfSetLevel.
+ * of every existing Logger and keeps track of this in a Map named historyOfSetLevel.
  * Then, when a new Logger is instantiated, that historyOfSetLevel will be re-evaluated
  * for that new Logger only.
  *
- *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  */
 public class LogManager {
 
