@@ -5,50 +5,50 @@ import java.util.Map;
 
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * LogManager - Provides core functionality.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * About Loggers and their usage.
- *
+ * <p>
  * Do not instantiate Loggers yourself, as they will not function properly. To create one,
  * call LogManager.getLogger() in one of the following ways:
- *
+ * <p>
  *   LogManager.getLogger();                    Gets the Logger for the current class
  *   LogManager.getLogger(this.getClass());     Gets the Logger for the current class
  *   LogManager.getLogger(Main.getClass());     Gets the Logger for the Main class
  *   LogManager.getLogger("com.xyz.Main");      Gets the Logger for class "com.xyz.Main"
  *   LogManager.getLogger("com.xyz");           Gets the Logger for classes in "com.xyz"
  *   LogManager.getLogger("Issue231");          Gets the Logger for tracking issue 231
- *
+ * <p>
  * The Logger that is returned from that call (above) is to be used for logging in that
  * class. However, you can create multiple Loggers, if desired, for one class, or you can
  * create a Logger to use for multiple classes. The name of the Logger is not required to
  * be the same as the class. That is merely a convention to help you to track log events
  * from the log output back to the class where they originated. (hence "Issue231" above)
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * Hierarchy of LogManager.setLevel() calls.
- *
+ * <p>
  * The setLevel() calls are apply in a temporal hierarchy - one after the other in the
  * order in which they are called. For instance, you may have classes named com.xyz.Main,
  * com.xyz.support.Reports, and com.xyz.support.DBO. If you wanted to track only Warnings
  * and Errors in the libraries, but wanted to log Info for Main and Reports, but needed
  * Diag level logging in DBO, you could put this code into Main:
- *
+ * <p>
  *   LogManager.setLevel(LogLevel.Warn, "");
  *   LogManager.setLevel(LogLevel.Info, "com.xyz");
  *   LogManager.setLevel(LogLevel.Diag, "com.xyz.DBO");
- *
+ * <p>
  * Of course, this assumes that you used the default (no argument) LogManager.getLogger()
  * to get your Loggers, so they would be named according to their package and class names.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
- *
+ * <p>
  * Description of setLevel() and related methods.
- *
+ * <p>
  * An elegant way to apply the hierarchy of setLevel() calls is to maintain a directed graph
  * that can be used dynamically by Logger.log(). The problem with that approach, however, is
  * that the evaluation will occur during the Logger.log() call and that is the most time-
@@ -56,21 +56,21 @@ import java.util.Map;
  * called very occasionally, but Logger.log() is called frequently and sometimes in a loop.
  * Moreover, the user has an expectation that Logger.log() performance will not drastically
  * impact the timing of his application, else it would be useless for concurrent debugging.
- *
+ * <p>
  * With all of that in mind, a less elegant approach was chosen for setLevel(). This allows
  * the Logger.log() calls to retain a "current Level" that does not need to be evaluated at
  * the time of the call. Here is how it works...
- *
+ * <p>
  *  1. When setLevel() is called, it sets the current LogLevel of every existing Logger.
- *
+ * <p>
  *  2. When a new Logger is instantiated, it will then be configured with the history of
  *     previous setLevel() calls.
- *
+ * <p>
  * In other words, setLevel() works on two fronts. When it is called, it sets the level
  * of every existing Logger and keeps track of this in a Map named historyOfSetLevel.
  * Then, when a new Logger is instantiated, that historyOfSetLevel will be re-evaluated
  * for that new Logger only.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  */
 public class LogManager {

@@ -2,13 +2,13 @@ package com.ablestrategies.logger;
 
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * Logger - This is a "named" filter to allow the Log Level to be set hierarchically.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * How to use this.
- *
+ * <p>
  * You can call Logger.log() directly, although it is typically easier to use shortcut
  * methods listed at the end of this source file. Each message that you log will have
  * a Level associated with it. (see Level.java) You can set the logLevel hierarchy in
@@ -16,22 +16,22 @@ package com.ablestrategies.logger;
  * will be discarded. For instance, if you set the Level to Warn, then only Warn and
  * Error messages will be logged and others will be discarded. (Note that Error is a
  * higher priority than Warn, so it gets logged as well.)
- *
+ * <p>
  *   TRACE log messages are filtered by Level Trace
  *   DIAG log messages are filtered by Level Diag
  *   INFO log messages are filtered by Level Info
  *   WARN log messages are filtered by Level Warn
  *   ERROR log messages are filtered by Level Error
- *
+ * <p>
  * For example, assume that a class is using a Logger that is set to Level Diag. Here
  * are the results of calling that Logger with various shortcuts.
- *
+ * <p>
  *   logger.TRACE("Msg 1");  // will NOT be logged because Level is set to Diag
  *   Logger.DIAG("Msg 2");   // Will bt logged because Level is set to Diag
  *   Logger.INFO("Msg 3");   // Will bt logged because Level Info is higher than Diag
  *   Logger.WARN("Msg 4");   // Will bt logged because Level Warn is higher than Diag
  *   Logger.ERROR("Msg 5");  // Will bt logged because Level Error is higher than Diag
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 public class Logger {

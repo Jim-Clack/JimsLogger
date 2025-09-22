@@ -8,19 +8,19 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * AppenderThread - Background thread that dequeues events and calls the Appenders.
- *
+ * <p>
  * Note: Some of these methods run on the background thread and some on the Main thread.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * To add appenders, put the XxxAppender.class file into a folder referenced by the
  * classpath, then add its full name (dotted package and class name without ".class")
  * to the list of appenders in the configuration. Some appenders need more configuration
  * settings as well, such as a message prefix, so refer to the documentation for the
  * corresponding appender.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 public class AppenderThread extends Thread {

@@ -2,13 +2,13 @@ package com.ablestrategies.logger;
 
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
- * QUICK CHEAT_SHEET
- *
+ * <p>
+ * Guide to replacement symbols.
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
+ * <p>
  * All replacement symbols begin with @, followed by either...
- *
+ * <p>
  * A) 1..9  vararg parameter number (one-based) followed by
  *   s     string
  *   b     boolean as T or F
@@ -22,7 +22,7 @@ package com.ablestrategies.logger;
  *   p     pointer/handle to object/array
  *   o     object/array dump, shallow
  *   O     object/array dump, deep (not yet implemented)
- *
+ * <p>
  * B) The following are not passed as vararg values
  *   l     LogLevel value
  *   L     LogLevel name
@@ -43,12 +43,12 @@ package com.ablestrategies.logger;
  *   h     thread number
  *   H     thread name
  *   @     two @-signs (@@) are escaped to a single @
- *
+ * <p>
  * If a value is null then it will be replaced with (null)
  * If a value is illegal then it will be replaced with ###
  * If a symbol is corrupt then it will be replaced with ???
  * Class names (m, M, c, and C) include an abbreviated package prefix.
- *
+ * <p>
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 public class TextFormatter {
@@ -66,7 +66,7 @@ public class TextFormatter {
         return logEvent.toString(); // TODO
     }
 
-    private String getClassAndMethod(LogEvent logEvent, boolean abbreviated,
+    private String assembleCallerPath(LogEvent logEvent, boolean abbreviated,
                                      boolean showPackage, boolean showClass, boolean showLineNumbers) {
         String result = getter.getClassName();
         String packageName = "";
