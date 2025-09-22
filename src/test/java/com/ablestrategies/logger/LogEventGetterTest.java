@@ -1,35 +1,25 @@
 package com.ablestrategies.logger;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class EventTest {
+class LogEventGetterTest {
+
+    private LogEvent event;
+    private LogEventGetter getter;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-    }
-
-    @org.junit.jupiter.api.AfterEach
-    void tearDown() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getLevel() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getMessage() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void testToString() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getThrowableMessage() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getThrowableStackDump() {
+        // if it's just before the minute changes, wait a few seconds first...
+        LocalDateTime now;
+        do {
+            now = LocalDateTime.now();
+        } while(now.get(ChronoField.SECOND_OF_MINUTE) > 57);
+        // create the event now
+        event = new LogEvent(Level.Diag, "ABCDEFG", new ArithmeticException("EXC"));
+        getter = new LogEventGetter(event);
     }
 
     @org.junit.jupiter.api.Test

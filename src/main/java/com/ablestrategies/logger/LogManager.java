@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
- * LogManager - Provides the core functionality.
+ * LogManager - Provides core functionality.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *

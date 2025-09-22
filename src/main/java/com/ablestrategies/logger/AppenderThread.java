@@ -6,6 +6,23 @@ import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * AppenderThread - Background thread that dequeues events and calls the Appenders.
+ *
+ * Note: Some of these methods run on the background thread and some on the Main thread.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * To add appenders, put the XxxAppender.class file into a folder referenced by the
+ * classpath, then add its full name (dotted package and class name without ".class")
+ * to the list of appenders in the configuration. Some appenders need more configuration
+ * settings as well, such as a message prefix, so refer to the documentation for the
+ * corresponding appender.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
 public class AppenderThread extends Thread {
 
     public static int MAX_ERRORS = 1000;
@@ -15,23 +32,19 @@ public class AppenderThread extends Thread {
     private final BlockingQueue<LogEvent> blockingQueue;
     private int errorCount = 0;
 
-    public AppenderThread(IConfiguration config) {
+    /**
+     * Ctor.
+     * @param configuration Source of settings.
+     */
+    public AppenderThread(IConfiguration configuration) {
         setName("JLogger-Appenders");
-        populateAppenderMap(config);
+        populateAppenderMap(configuration);
         blockingQueue = new ArrayBlockingQueue<LogEvent>(128);
     }
 
-    public void appendEvent(LogEvent event) {
-        try {
-            blockingQueue.put(event);
-        } catch (InterruptedException e) {
-            if(++errorCount >= MAX_ERRORS) {
-                System.err.println("\n\nJLogger AppenderThread Failure\n");
-                errorCount = 0;
-            }
-        }
-    }
-
+    /**
+     * Background thread that dequeues events and writes them to the appenders.
+     */
     @Override
     public void run() {
         if(!startupErrors.isEmpty()) {
@@ -52,6 +65,10 @@ public class AppenderThread extends Thread {
         interrupt();
     }
 
+    /**
+     * Do the actual logging by calling the appenders.
+     * @param event to be logged.
+     */
     private void writeToAppenders(LogEvent event) {
         for(Map.Entry<String, IAppender> entry : appenders.entrySet()) {
             IAppender appender = entry.getValue();
@@ -59,16 +76,34 @@ public class AppenderThread extends Thread {
         }
     }
 
-    private void populateAppenderMap(IConfiguration config) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String appendersString = config.getString("jlogger.appenders.list", "ConsoleAppender");
+    /**
+     * Append an event to the queue. Note: Runs on Main thread, not Appender thread.
+     * @param event To be enqueued.
+     */
+    public void appendEvent(LogEvent event) {
+        try {
+            blockingQueue.put(event);
+        } catch (InterruptedException e) {
+            if(++errorCount >= MAX_ERRORS) {
+                System.err.println("\n\nJLogger AppenderThread Failure\n");
+                errorCount = 0;
+            }
+        }
+    }
+
+    /**
+     * Populate the AppenderMap with the appenders to be called. Note: Runs on Main thread, not Appender thread.
+     * @param configuration Provided settings.
+     */
+    private void populateAppenderMap(IConfiguration configuration) {
+        String appendersString = configuration.getString("jlogger.appenders.list", "ConsoleAppender");
         String[] appenderClassNames = appendersString.split("[, ]");
         for(String className : appenderClassNames) {
             try {
-                addAppenderToMap(config, className, classLoader);
+                addAppenderToMap(configuration, className);
             } catch (Exception e) {
                 if(className.equals("ConsoleAppender")) {
-                    appenders.put(className, new ConsoleAppender(config)); // in case the naked .class is missing
+                    appenders.put(className, new ConsoleAppender(configuration)); // in case the naked .class is missing
                     continue;
                 }
                 startupErrors.append("\n").append(e.getMessage()).append(" ").append(className);
@@ -76,13 +111,19 @@ public class AppenderThread extends Thread {
         }
     }
 
+    /**
+     * Add an Appender to the appenders map. Note: Runs on Main thread, not Appender thread.
+     * @param configuration Provided settings.
+     * @param className Name of Appender class to be added.
+     * @throws Exception If appender cannot be found, we lack premission, or other problem.
+     */
     @SuppressWarnings("unchecked")
-    private void addAppenderToMap(IConfiguration config, String className, ClassLoader classLoader)
+    private void addAppenderToMap(IConfiguration configuration, String className)
             throws Exception {
-        Class<?> clazz = classLoader.loadClass(className);
+        Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
         Class<?>[] params = new Class[]{IConfiguration.class};
         Constructor<IAppender> ctor = (Constructor<IAppender>) clazz.getConstructor(params);
-        IAppender appender = ctor.newInstance(config);
+        IAppender appender = ctor.newInstance(configuration);
         appenders.put(className, appender);
     }
 

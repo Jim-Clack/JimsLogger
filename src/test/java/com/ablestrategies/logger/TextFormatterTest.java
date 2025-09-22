@@ -13,15 +13,8 @@ class TextFormatterTest {
         textFormatter = new TextFormatter("[PREFIX]");
     }
 
-    @org.junit.jupiter.api.AfterEach
-    void tearDown() {
-    }
-
     @org.junit.jupiter.api.Test
     void testFormat() {
     }
 
-    @org.junit.jupiter.api.Test
-    void testAbbreviate() {
-    }
 }

@@ -41,32 +41,32 @@ public class LogEventGetter {
 
     public String getTimestampLocalDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return formatter.format(event.timestamp.toLocalDate());
+        return event.timestamp.format(formatter);
     }
 
     public String getTimestampLocalDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return formatter.format(event.timestamp.toLocalDate());
+        return event.timestamp.format(formatter);
     }
 
     public String getTimestampLocalTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return formatter.format(event.timestamp.toLocalDate());
+        return event.timestamp.format(formatter);
     }
 
     public String getTimestampUTCDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss 'UTC'");
-        return formatter.format(event.timestamp.atZone(ZoneOffset.UTC));
+        return event.timestamp.format(formatter);
     }
 
     public String getTimestampUTCDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'Z'");
-        return formatter.format(event.timestamp.atZone(ZoneOffset.UTC));
+        return event.timestamp.atZone(ZoneOffset.UTC).format(formatter);
     }
 
     public String getTimestampUTCTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss'Z'");
-        return formatter.format(event.timestamp.atZone(ZoneOffset.UTC));
+        return event.timestamp.atZone(ZoneOffset.UTC).format(formatter);
     }
 
     public String getThreadName() {
