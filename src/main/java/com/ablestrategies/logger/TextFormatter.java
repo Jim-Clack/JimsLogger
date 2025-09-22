@@ -1,19 +1,22 @@
 package com.ablestrategies.logger;
 
 /**
- * All replacement symbols begin with @, followed by either
- * A>>> 1..9  vararg parameter number (one-based) followed by
+ * QUICK CHEAT_SHEET
+ * All replacement symbols begin with @, followed by either...
+ * A) 1..9  vararg parameter number (one-based) followed by
  *   s     string
  *   b     boolean as T or F
  *   B     boolean ad True or False
  *   i     integer or long
  *   h     integer or long in hexadecimal
- *   f     floating point or double in shortest form
+ *   f     floating point or double in regular form
  *   F     floating point or double in exponential notation
+ *   d     date and time in local format
+ *   D     date and time in UTC format
  *   p     pointer/handle to object/array
  *   o     object/array dump, shallow
  *   O     object/array dump, deep (not yet implemented)
- * B>>> The following are not passed as vararg parameters
+ * B) The following are not passed as vararg values
  *   l     LogLevel value
  *   L     LogLevel name
  *   d     date short local form
@@ -25,7 +28,7 @@ package com.ablestrategies.logger;
  *   e     exception message
  *   E     exception message and trace
  *   m     calling method name
- *   M     calling class.method name, with line number if DEBUG
+ *   M     calling method name, with line number if DEBUG
  *   c     calling class name
  *   C     calling class.method name, with line number if DEBUG
  *   p     calling package.class name
@@ -40,18 +43,43 @@ package com.ablestrategies.logger;
  */
 public class TextFormatter {
 
+    private LogEventGetter getter;
+
     private String prefix = "@X [@L] @C: ";
 
     public TextFormatter(String prefix) {
         this.prefix = prefix;
     }
 
-    public String format(Event logEvent) {
+    public String format(LogEvent logEvent) {
+        getter = new LogEventGetter(logEvent);
         return logEvent.toString(); // TODO
     }
 
-    private String getClassName(Event logEvent, boolean abbreviatePackage, boolean showLineNumbers) {
-
-        return logEvent.getClassName();
+    private String getClassAndMethod(LogEvent logEvent, boolean abbreviated,
+                                     boolean showPackage, boolean showClass, boolean showLineNumbers) {
+        String result = getter.getClassName();
+        String packageName = "";
+        int lastDotPosition = result.lastIndexOf(".");
+        if(lastDotPosition > 0) {
+            packageName =  result.substring(0, lastDotPosition + 1);
+            result = result.substring(lastDotPosition + 1);
+        }
+        if(!showPackage) {
+            packageName = "";
+        }
+        if(abbreviated) {
+            packageName = Support.abbreviate(packageName);
+        }
+        String methodName = getter.getMethodName();
+        result = packageName + result + "."  + methodName;
+        if(!showClass) {
+            result = methodName;
+        }
+        if(showLineNumbers) {
+            // TODO
+        }
+        return result;
     }
+
 }

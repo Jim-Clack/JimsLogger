@@ -26,16 +26,13 @@ public class Logger {
         }
     }
 
-    public void TRACE(String message) { log(Level.Trace, message); }
-    public void TRACE(String message, Throwable throwable) { log(Level.Trace, message,throwable); }
-    public void DIAG(String message) { log(Level.Diag, message); }
-    public void DIAG(String message, Throwable throwable) { log(Level.Diag, message,throwable); }
-    public void INFO(String message) { log(Level.Info, message); }
-    public void INFO(String message, Throwable throwable) { log(Level.Info, message,throwable); }
-    public void WARN(String message) { log(Level.Warn, message); }
-    public void WARN(String message, Throwable throwable) { log(Level.Warn, message,throwable); }
-    public void ERROR(String message) { log(Level.Error, message); }
-    public void ERROR(String message, Throwable throwable) { log(Level.Error, message,throwable); }
+    String getPackageClassName() {
+        return packageClassName;
+    }
+
+    void setLogLevel(Level level) {
+        this.level = level;
+    }
 
     @Override
     public String toString() {
@@ -45,12 +42,17 @@ public class Logger {
         return buffer.toString();
     }
 
-    String getPackageClassName() {
-        return packageClassName;
-    }
+    //////////////////////////// Shortcut Methods ////////////////////////////
 
-    void setLogLevel(Level level) {
-        this.level = level;
-    }
+    public void TRACE(String message) { log(Level.Trace, message); }
+    public void TRACE(String message, Throwable throwable) { log(Level.Trace, message, throwable); }
+    public void DIAG(String message) { log(Level.Diag, message); }
+    public void DIAG(String message, Throwable throwable) { log(Level.Diag, message, throwable); }
+    public void INFO(String message) { log(Level.Info, message); }
+    public void INFO(String message, Throwable throwable) { log(Level.Info, message, throwable); }
+    public void WARN(String message) { log(Level.Warn, message); }
+    public void WARN(String message, Throwable throwable) { log(Level.Warn, message, throwable); }
+    public void ERROR(String message) { log(Level.Error, message); }
+    public void ERROR(String message, Throwable throwable) { log(Level.Error, message, throwable); }
 
 }

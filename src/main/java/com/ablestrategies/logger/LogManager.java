@@ -3,15 +3,43 @@ package com.ablestrategies.logger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * Description of setLevel() and related methods.
+ *
+ * An elegant way to apply the hierarchy of setLevel() calls is to maintain a directed graph
+ * that can be used dynamically by Logger.log(). The problem with that approach, however, is
+ * that the evaluation will occur during the Logger.log() call and that is the most time-
+ * critical method in the package. Please understand that setLevel() and get getLogger() are
+ * called very occasionally, but Logger.log() is called frequently and sometimes in a loop.
+ * Moreover, the user has an expectation that Logger.log() performance will not drastically
+ * impact the timing of his application, else it would be useless for concurrent debugging.
+ *
+ * With all of that in mind, a less elegant approach was chosen for setLevel(). This allows
+ * the Logger.log() calls to retain a "current Level" that does not need to be evaluated at
+ * the time of the call. Here is how it works...
+ *
+ *  1. When setLevel() is called, it sets the current LogLevel of every existing Logger.
+ *
+ *  2. When a new Logger is instantiated, it will then be configured with the history of
+ *     previous setLevel() calls.
+ *
+ * In other words, setLevel() works on two fronts. When it is called, it sets the level
+ * of every existing Logger and keeps track of this in a map named historyOfSetLevel.
+ * Then, when a new Logger is instantiated, that historyOfSetLevel will be re-evaluated
+ * for that new Logger only.
+ *
+ *
+ */
 public class LogManager {
 
     private static LogManager instance = null;
 
     private final Level defaultLevel;
 
-    private final Map<String, Logger> loggers = new HashMap<>();
+    private final Map<String, Logger> allLoggers = new HashMap<>();
 
-    private final Map<String, Level> history = new HashMap<>();
+    private final Map<String, Level> historyOfSetLevel = new HashMap<>();
 
     private final AppenderThread appenderThread;
 
@@ -35,13 +63,7 @@ public class LogManager {
      * @return corresponding Logger
      */
     public Logger getLogger() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        int elementIndex =  1;
-        while(elementIndex < stackTrace.length-1
-                && stackTrace[elementIndex].getClassName().startsWith("com.ablestrategies.logger")) {
-            elementIndex++;
-        }
-        String packageClassName = stackTrace[elementIndex].getClassName();
+        String packageClassName = Support.getCallerStackTraceElement().getClassName();
         return getLogger(packageClassName);
     }
 
@@ -65,11 +87,11 @@ public class LogManager {
         if (packageClassName == null) {
             return getLogger();
         }
-        Logger logger = loggers.get(packageClassName);
+        Logger logger = allLoggers.get(packageClassName);
         if (logger == null) {
             logger = new Logger(this, packageClassName, defaultLevel);
-            applyHistory(logger);
-            loggers.put(packageClassName, logger);
+            applyHistoryOfSetLevel(logger);
+            allLoggers.put(packageClassName, logger);
         }
         return logger;
     }
@@ -84,19 +106,19 @@ public class LogManager {
             packageClassName = "";
         }
         final String pkgClassName = packageClassName;
-        loggers.entrySet().stream()
+        allLoggers.entrySet().stream()
             .filter(entry -> entry.getKey().startsWith(pkgClassName))
                 .forEach(entry -> entry.getValue().setLogLevel(level));
-        history.put(packageClassName, level);
+        historyOfSetLevel.put(packageClassName, level);
     }
 
     public void write(Level level, String message, Throwable throwable) {
-        Event event = new Event(level, message, throwable);
+        LogEvent event = new LogEvent(level, message, throwable);
         appenderThread.appendEvent(event);
     }
 
-    private void applyHistory(Logger logger) {
-        for(Map.Entry<String, Level> entry : history.entrySet()) {
+    private void applyHistoryOfSetLevel(Logger logger) {
+        for(Map.Entry<String, Level> entry : historyOfSetLevel.entrySet()) {
             if(logger.getPackageClassName().startsWith(entry.getKey())) {
                 logger.setLogLevel(entry.getValue());
             }

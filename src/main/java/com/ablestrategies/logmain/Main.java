@@ -4,7 +4,7 @@ import com.ablestrategies.logger.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.setProperty("jlogger.appenders.list", "com.ablestrategies.logger.ConsoleJAppender");
+        System.setProperty("jlogger.appenders.list", "com.ablestrategies.logger.ConsoleAppender");
         System.out.println("Starting");
 
         LogManager.getInstance().setLevel(Level.Diag, "com.ablestrategies.logmain");
