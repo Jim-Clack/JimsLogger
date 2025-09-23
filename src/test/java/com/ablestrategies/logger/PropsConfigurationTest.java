@@ -38,13 +38,22 @@ class PropsConfigurationTest {
 
     @org.junit.jupiter.api.Test
     void getString() {
-        assertEquals("appender1,appender2", configuration.getString("jlogger.appenders.list", ""));
-        assertEquals("[prefix]", configuration.getString("jlogger.console.prefix", ""));
-        assertEquals("Info", configuration.getString("jlogger.default.level", ""));
-        assertEquals(12345, configuration.getInteger("jlogger.max.filesize", 0));
+        String str = configuration.getString("jlogger.appenders.list", "");
+        System.out.println("Testing PropsConfiguration.getString jlogger.appenders.list (" + str + ")");
+        assertEquals("appender1,appender2", str);
+        str = configuration.getString("jlogger.console.prefix", "");
+        System.out.println("Testing PropsConfiguration.getString jlogger.console.prefix (" + str + ")");
+        assertEquals("[prefix]", str);
+        str = configuration.getString("jlogger.default.level", "");
+        System.out.println("Testing PropsConfiguration.getString jlogger.default.level (" + str + ")");
+        assertEquals("Info", str);
     }
 
     @org.junit.jupiter.api.Test
     void getInteger() {
+        int i = configuration.getInteger("jlogger.max.filesize", 0);
+        System.out.println("Testing PropsConfiguration.getString jlogger.max.filesize (" + i + ")");
+        assertEquals(12345, i);
     }
+
 }

@@ -48,7 +48,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetThrowableMessage() {
         String str = getter.getThrowableMessage();
-        System.out.println("Testing getThrowableMessage (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getThrowableMessage (" + str + ")");
         assertNotNull(str);
         assertEquals("EXC", str);
     }
@@ -56,7 +56,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetThrowableStackDump() {
         String str = getter.getThrowableStackDump();
-        System.out.println("Testing getThrowableStackDump (" + str.substring(0, 30) + ")");
+        System.out.println("Testing LogEventStringGetter.getThrowableStackDump (" + str.substring(0, 30) + ")");
         assertNotNull(str);
         assertTrue(str.contains("ArithmeticException"));
         assertTrue(str.split("\n").length > 2);
@@ -65,7 +65,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetTimestampLocalDateTimeAsString() {
         String str = getter.getTimestampLocalDateTimeAsString();
-        System.out.println("Testing getTimestampLocalDateTimeAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getTimestampLocalDateTimeAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.contains("" + (now.getYear() % 100)));
         assertTrue(str.contains("" + now.getMonth().getValue()));
@@ -77,7 +77,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetTimestampLocalDateAsString() {
         String str = getter.getTimestampLocalDateAsString();
-        System.out.println("Testing getTimestampLocalDateAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getTimestampLocalDateAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.contains("" + (now.getYear() % 100)));
         assertTrue(str.contains("" + now.getMonth().getValue()));
@@ -87,7 +87,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetTimestampLocalTimeAsString() {
         String str = getter.getTimestampLocalTimeAsString();
-        System.out.println("Testing getTimestampLocalTimeAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getTimestampLocalTimeAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.contains("" + now.getHour()) || str.contains("" + (now.getHour() % 12)));
         assertTrue(str.contains("" + now.getMinute()));
@@ -96,7 +96,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetTimestampUtcDateTimeAsString() {
         String str = getter.getTimestampUtcDateTimeAsString();
-        System.out.println("Testing getTimestampUtcDateTimeAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getTimestampUtcDateTimeAsString (" + str + ")");
         OffsetDateTime utc = now.atOffset(ZoneOffset.UTC);
         assertNotNull(str);
         assertTrue(str.startsWith("" + (utc.getYear())));
@@ -109,7 +109,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetTimestampUtcDateAsString() {
         String str = getter.getTimestampUtcDateAsString();
-        System.out.println("Testing getTimestampUtcDateAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getTimestampUtcDateAsString (" + str + ")");
         OffsetDateTime utc = now.atOffset(ZoneOffset.UTC);
         assertNotNull(str);
         assertTrue(str.startsWith("" + (utc.getYear())));
@@ -120,7 +120,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetTimestampUtcTimeAsString() {
         String str = getter.getTimestampUtcDateTimeAsString();
-        System.out.println("Testing getTimestampUtcTimeAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getTimestampUtcTimeAsString (" + str + ")");
         OffsetDateTime utc = now.atOffset(ZoneOffset.UTC);
         assertNotNull(str);
         assertTrue(str.contains("" + utc.getHour()));
@@ -130,7 +130,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetStringArgumentAsString() {
         String str = getter.getStringArgumentAsString(2);
-        System.out.println("Testing getStringArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getStringArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertEquals("Test", str);
     }
@@ -138,7 +138,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetLongArgumentAsString() {
         String str = getter.getLongArgumentAsString(3);
-        System.out.println("Testing getLongArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getLongArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertEquals("1024", str);
     }
@@ -146,7 +146,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetDoubleArgumentAsString() {
         String str = getter.getDoubleArgumentAsString(4);
-        System.out.println("Testing getDoubleArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getDoubleArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertEquals("-1.234", str);
     }
@@ -154,7 +154,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetBooleanArgumentAsString() {
         String str = getter.getBooleanArgumentAsString(5);
-        System.out.println("Testing getBooleanArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getBooleanArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertEquals("true", str);
     }
@@ -162,7 +162,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetHexArgumentAsString() {
         String str = getter.getHexArgumentAsString(3);
-        System.out.println("Testing getHexArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getHexArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertEquals("400", str);
     }
@@ -170,7 +170,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetLocalDateTimeArgumentAsString() {
         String str = getter.getLocalDateTimeArgumentAsString(7);
-        System.out.println("Testing getLocalDateTimeArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getLocalDateTimeArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.contains("" + (now.getYear() % 100)));
         assertTrue(str.contains("" + now.getMonth().getValue()));
@@ -182,7 +182,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetUtcDateTimeArgumentAsString() {
         String str = getter.getUtcDateTimeArgumentAsString(7);
-        System.out.println("Testing getUtcDateTimeArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getUtcDateTimeArgumentAsString (" + str + ")");
         OffsetDateTime utc = now.atOffset(ZoneOffset.UTC);
         assertNotNull(str);
         assertTrue(str.startsWith("" + (utc.getYear())));
@@ -195,7 +195,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetExceptionMessageArgumentAsString() {
         String str = getter.getExceptionMessageArgumentAsString(1);
-        System.out.println("Testing getExceptionMessageArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getExceptionMessageArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertEquals("EXC", str);
     }
@@ -203,7 +203,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetExceptionStackDumpArgumentAsString() {
         String str = getter.getExceptionStackDumpArgumentAsString(1);
-        System.out.println("Testing getExceptionStackDumpArgumentAsString (" + str.substring(0, 30) + ")");
+        System.out.println("Testing LogEventStringGetter.getExceptionStackDumpArgumentAsString (" + str.substring(0, 30) + ")");
         assertNotNull(str);
         assertTrue(str.contains("ArithmeticException"));
         assertTrue(str.split("\n").length > 2);
@@ -212,7 +212,7 @@ class LogEventStringGetterTest {
     @Test
     void testGetToStringArgumentAsString() {
         String str = getter.getToStringArgumentAsString(6);
-        System.out.println("Testing getToStringArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getToStringArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.startsWith("Level"));
         assertTrue(str.contains("Diag"));
@@ -221,11 +221,11 @@ class LogEventStringGetterTest {
     @Test
     void testGetObjectArgumentAsString() {
         String str = getter.getObjectArgumentAsString(6, 0);
-        System.out.println("Testing getObjectArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getObjectArgumentAsString (" + str + ")");
         assertNotNull(str);
         //
         str = getter.getObjectArgumentAsString(6, 1);
-        System.out.println("Testing getObjectArgumentAsString (" + str + ")");
+        System.out.println("Testing LogEventStringGetter.getObjectArgumentAsString (" + str + ")");
         assertNotNull(str);
         //
     }

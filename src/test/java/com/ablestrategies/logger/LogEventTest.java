@@ -26,28 +26,35 @@ class LogEventTest {
 
     @org.junit.jupiter.api.Test
     void getLevel() {
+        System.out.println("Testing LogEvent.Level (" + event.level.name() + ")");
         assertEquals(Level.Diag.name(), event.level.name());
     }
 
     @org.junit.jupiter.api.Test
     void getMessage() {
+        System.out.println("Testing LogEvent.Message (" + event.message + ")");
         assertEquals("ABCDEFG", event.message);
     }
 
     @org.junit.jupiter.api.Test
     void testToString() {
+        System.out.println("Testing LogEvent.toString (" + event.toString() + ")");
         assertTrue(event.toString().contains("Diag"));
         assertTrue(event.toString().contains("ABCDEFG"));
     }
 
     @org.junit.jupiter.api.Test
     void getThrowableMessage() {
+        assertNotNull(event.throwable);
+        System.out.println("Testing LogEvent.Throwable (" + event.throwable.getMessage() + ")");
         assertEquals("EXC", event.throwable.getMessage());
         assertEquals("java.lang.ArithmeticException", event.throwable.getClass().getName());
     }
 
     @org.junit.jupiter.api.Test
     void getThrowableStackDump() {
+        assertNotNull(event.throwable);
+        System.out.println("Testing LogEvent.Throwable (" + event.throwable.getStackTrace()[0].getMethodName() + ")");
         StackTraceElement[] stackTrace = event.throwable.getStackTrace();
         assertEquals("setUp", stackTrace[0].getMethodName());
     }
