@@ -1,12 +1,10 @@
 package com.ablestrategies.logger;
 
 /**
- * TextFormatter - Convert a LogEvent to a message String.<p/>
- * This makes use of a LogEventStringGetter to access the contents of the LogEvent.<br/>
- * ------------------------------------
- * <br/>
- * Guide to replacement symbols.
- * <br/>
+ * TextFormatter - Convert a LogEvent to a message String.
+ * <br/><br/>
+ * This makes use of a LogEventStringGetter to access the contents of the LogEvent.
+ * <h4> Guide to replacement symbols. </h4>
  * All replacement symbols begin with @, followed by (A) or (B) below<br/>
  * <p/> <br/>
  * (A) 1..9  vararg parameter number (one-based) followed by </li>
@@ -44,8 +42,7 @@ package com.ablestrategies.logger;
  * <li>  h     thread name </li>
  * <li>  @     two @-signs (@@) are escaped to a single @ </li>
  * </ul>
- * <p/> <br/>
- * Please note that...
+ * <h4> Please note that... </h4>
  * <ul>
  * <li>If a value is null then it will be replaced with (null)
  * <li>If a value is illegal then it will be replaced with ###

@@ -24,7 +24,7 @@ public class Main {
         logger4.DIAG("Logger4 (@1s=@2s) 4a - it should NOT log !!!", logger4.getPackageClassName(), logger4.getLevel().name());
         logger4.WARN("Logger4 (@1s=@2s) 4b - it should log", logger4.getPackageClassName(), logger4.getLevel().name());
 
-        LogManager.getInstance().setLevel(Level.Diag, ""); // all
+        LogManager.getInstance().setLevel(Level.Diag, null); // all
 
         logger2.DIAG("Logger2 (@1s=@2s) 2a - it should log, even though it did not before", logger2.getPackageClassName(), logger2.getLevel().name());
         logger4.DIAG("Logger4 (@1s=@2s) 4a - it should log, even though it did not before", logger4.getPackageClassName(), logger4.getLevel().name());

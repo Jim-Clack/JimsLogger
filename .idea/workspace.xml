@@ -4,25 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventBaseGetter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventTypedGetter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" afterDir="false" />
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Appender thread still does not shut down and there is no slf4j API yet.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/KeyValuePair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Logger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/PropsConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/PropsConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventGetterTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +22,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -198,7 +186,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="55775000" />
+      <workItem from="1758468451225" duration="60067000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -264,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758579248939</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Appender thread still does not shut down and there is no slf4j API yet.">
+      <option name="closed" value="true" />
+      <created>1758651392230</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1758651392230</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +287,8 @@
     <MESSAGE value="Added unit tests, more internal documentation, etc. Still needs thread shutdown, more docs, more appenders, and to finish the formatters." />
     <MESSAGE value="Cleaned up some JavaDoc warnings." />
     <MESSAGE value="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate." />
-    <option name="LAST_COMMIT_MESSAGE" value="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate." />
+    <MESSAGE value="Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Appender thread still does not shut down and there is no slf4j API yet." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Appender thread still does not shut down and there is no slf4j API yet." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -309,7 +306,7 @@
       <configuration name="Application">
         <watch expression="packageClassName" />
       </configuration>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" line="151">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" line="154">
         <watch expression="pkgClassName" />
       </inline-watch>
     </watches-manager>

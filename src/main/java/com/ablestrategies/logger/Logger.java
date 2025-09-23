@@ -2,8 +2,7 @@ package com.ablestrategies.logger;
 
 /**
  * Logger - This is a "named" filter to allow the Log Level to be set hierarchically.
- * <br/>
- * How to use this.<br/>
+ * <h4> How to use this: </h4>
  * You can call Logger.log() directly, although it is typically easier to use shortcut
  * methods listed at the end of this source file. Each message that you log will have
  * a Level associated with it. (see Level.java) You can set the logLevel hierarchy in
@@ -27,7 +26,7 @@ package com.ablestrategies.logger;
  *  <li> Logger.WARN("Msg 4");   // Will bt logged because Level Warn is higher than Diag </li>
  *  <li> Logger.ERROR("Msg 5");  // Will bt logged because Level Error is higher than Diag </li>
  * </ul>
- * There are 3 ways of calling each log() or shortcut method:
+ * <h4> There are 3 ways of calling each log() or shortcut method: </h4>
  * <ul>
  *  <li> 1. log(Level.Xxx, message);                 -OR-     XXXX(message); </li>
  *  <li> 2. log(Level.Xxx, message, exception);      -OR-     XXXX(message, exception); </li>
