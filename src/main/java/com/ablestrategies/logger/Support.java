@@ -1,12 +1,17 @@
 package com.ablestrategies.logger;
 
 /**
- * Static support methods.
+ * Support - Static support methods.
  */
 class Support {
 
+    /** Package names get abbreviated to this length. */
     public static int MAX_ABBREV_LGT = 16;
 
+    /**
+     * Get the Caller's stack trace element.
+     * @return Most recent stack trace element not in the Logger package.
+     */
     static StackTraceElement getCallerStackTraceElement() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         int elementIndex =  1; // skip over stackDump()
@@ -48,7 +53,7 @@ class Support {
      * @param abbreviate true to abbreviate the package name
      * @return the desired path as a dot-delimited string
      */
-    static String assembleCallerPath(LogEventGetter getter, boolean showPackage, boolean showClass, boolean abbreviate) {
+    static String assembleCallerPath(LogEventStringGetter getter, boolean showPackage, boolean showClass, boolean abbreviate) {
         String result = getter.getClassName();
         String packageName = "";
         int lastDotPosition = result.lastIndexOf(".");

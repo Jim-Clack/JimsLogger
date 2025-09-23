@@ -1,14 +1,9 @@
 package com.ablestrategies.logger;
 
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * <p>
  * Logger - This is a "named" filter to allow the Log Level to be set hierarchically.
- * <p>
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * <p>
- * How to use this.
- * <p>
+ * <br/>
+ * How to use this.<br/>
  * You can call Logger.log() directly, although it is typically easier to use shortcut
  * methods listed at the end of this source file. Each message that you log will have
  * a Level associated with it. (see Level.java) You can set the logLevel hierarchy in
@@ -16,71 +11,105 @@ package com.ablestrategies.logger;
  * will be discarded. For instance, if you set the Level to Warn, then only Warn and
  * Error messages will be logged and others will be discarded. (Note that Error is a
  * higher priority than Warn, so it gets logged as well.)
- * <p>
- *   TRACE log messages are filtered by Level Trace
- *   DIAG log messages are filtered by Level Diag
- *   INFO log messages are filtered by Level Info
- *   WARN log messages are filtered by Level Warn
- *   ERROR log messages are filtered by Level Error
- * <p>
+ * <ul>
+ *  <li> TRACE log messages are filtered by Level Trace </li>
+ *  <li> DIAG log messages are filtered by Level Diag </li>
+ *  <li> INFO log messages are filtered by Level Info </li>
+ *  <li> WARN log messages are filtered by Level Warn </li>
+ *  <li> ERROR log messages are filtered by Level Error </li>
+ * </ul>
  * For example, assume that a class is using a Logger that is set to Level Diag. Here
  * are the results of calling that Logger with various shortcuts.
- * <p>
- *   logger.TRACE("Msg 1");  // will NOT be logged because Level is set to Diag
- *   Logger.DIAG("Msg 2");   // Will bt logged because Level is set to Diag
- *   Logger.INFO("Msg 3");   // Will bt logged because Level Info is higher than Diag
- *   Logger.WARN("Msg 4");   // Will bt logged because Level Warn is higher than Diag
- *   Logger.ERROR("Msg 5");  // Will bt logged because Level Error is higher than Diag
- * <p>
+ * <ul>
+ *  <li> logger.TRACE("Msg 1");  // will NOT be logged because Level is set to Diag </li>
+ *  <li> Logger.DIAG("Msg 2");   // Will bt logged because Level is set to Diag </li>
+ *  <li> Logger.INFO("Msg 3");   // Will bt logged because Level Info is higher than Diag </li>
+ *  <li> Logger.WARN("Msg 4");   // Will bt logged because Level Warn is higher than Diag </li>
+ *  <li> Logger.ERROR("Msg 5");  // Will bt logged because Level Error is higher than Diag </li>
+ * </ul>
  * There are 3 ways of calling each log() or shortcut method:
- * <p>
- *   1. log(Level.Xxx, message);                 -OR-     XXXX(message);
- *   2. log(Level.Xxx, message, exception);      -OR-     XXXX(message, exception);
- *   3. log(Level.Xxx, message, arg1, argN..);   -OR-     XXXX(message, arg1, argN..);
- * <p>
- * Note that you pass an exception as arg1 using form (3) above, but consider that the
- * exception will be argument number 1 so the first argument following that will be 2.
- * <p>
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * <ul>
+ *  <li> 1. log(Level.Xxx, message);                 -OR-     XXXX(message); </li>
+ *  <li> 2. log(Level.Xxx, message, exception);      -OR-     XXXX(message, exception); </li>
+ *  <li> 3. log(Level.Xxx, message, arg1, argN..);   -OR-     XXXX(message, arg1, argN..); </li>
+ * </ul>
+ * @apiNote You can pass an exception as arg1 as in (3) above, but please consider that
+ * the exception will be arg 1 so the first argument following that will be arg 2.
  */
 public class Logger {
 
+    /** The LogManager that created this Logger. */
     private final LogManager logManager;
 
+    /** The name of this Logger, typically a dot-delimited package and class name. */
     private final String packageClassName;
 
+    /** The current priority/severity level for filtering/discarding messages of lower levels. */
     private Level level;
 
+    /**
+     * Ctor.
+     * @param logManager The LogManager that created this Logger.
+     * @param packageClassName The name of this Logger, typically a dot-delimited package and class name.
+     * @param level Initial/default Level.
+     */
     public Logger(LogManager logManager, String packageClassName, Level level) {
         this.logManager = logManager;
         this.packageClassName = packageClassName;
         this.level = level;
     }
 
+    /**
+     * Write a log message. (actually, enqueue it so that it will be dequeued and sent to Appenders)
+     * @param level Priority/severity level. (Some Loggers may discard this message based on this.)
+     * @param message The message to be logged.
+     */
     public void log(Level level, String message) {
         if(level.getValue() >= this.level.getValue()) {
             logManager.write(level, message, null);
         }
     }
 
+    /**
+     * Write a log message. (actually, enqueue it so that it will be dequeued and sent to Appenders)
+     * @param level Priority/severity level. (Some Loggers may discard this message based on this.)
+     * @param message The message to be logged, wiht replacement symbols that reference varargs.
+     * @param args The arguments to be substituted into the message based on replacement symbols.
+     */
     public void log(Level level, String message, Object... args) {
         if(level.getValue() >= this.level.getValue()) {
             logManager.write(level, message, args);
         }
     }
 
+    /**
+     * Get our package/class name.
+     * @return The dot-delimited package and class as specified by the programmer.
+     */
     public String getPackageClassName() {
         return packageClassName;
     }
 
-    public Level getLogLevel() {
+    /**
+     * Get the priority/severity level.
+     * @return The level.
+     */
+    public Level getLevel() {
         return level;
     }
 
-    void setLogLevel(Level level) {
+    /**
+     * Set the priority/severity level.
+     * @param level Passed in by LogManager according to the PackageClassName.
+     */
+    void setLevel(Level level) {
         this.level = level;
     }
 
+    /**
+     * Override ToString().
+     * @return Description of this Logger.
+     */
     @Override
     public String toString() {
         return "Logger[name=" + packageClassName + ", level=" + level + "]";

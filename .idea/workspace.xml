@@ -4,17 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Cleaned up some JavaDoc warnings.">
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventBaseGetter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventTypedGetter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/PropsConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/PropsConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventGetterTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +67,7 @@
     "Application.Main.executor": "Debug",
     "JUnit.EventTest.executor": "Debug",
     "JUnit.EventTest.testToString.executor": "Debug",
+    "JUnit.LogEventStringGetterTest.executor": "Debug",
     "JUnit.TextFormatterTest.executor": "Debug",
     "JUnit.com.ablestrategies.logger in JimsLogger.executor": "Debug",
     "JUnit.logger in JimsLogger.executor": "Debug",
@@ -123,6 +132,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LogEventStringGetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JimsLogger" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ablestrategies.logger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
+      <option name="MAIN_CLASS_NAME" value="com.ablestrategies.logger.LogEventStringGetterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TextFormatterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JimsLogger" />
       <extension name="coverage">
@@ -138,20 +162,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.ablestrategies.logger in JimsLogger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JimsLogger" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ablestrategies.logger.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="logger in JimsLogger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JimsLogger" />
       <option name="TEST_OBJECT" value="directory" />
@@ -163,10 +173,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.logger in JimsLogger" />
+        <item itemvalue="JUnit.LogEventStringGetterTest" />
         <item itemvalue="JUnit.LogEventGetterTest" />
         <item itemvalue="JUnit.LogEventGetterTest.testToString" />
         <item itemvalue="JUnit.TextFormatterTest" />
-        <item itemvalue="JUnit.com.ablestrategies.logger in JimsLogger" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +198,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="38740000" />
+      <workItem from="1758468451225" duration="55775000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -246,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758551259129</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate.">
+      <option name="closed" value="true" />
+      <created>1758579248939</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1758579248939</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +290,8 @@
     <MESSAGE value="FIRST GOOD TEST VERSION - Added comments, fleshed out code a bit more. Still needs thread shutdown, more unit tests, docs, more appenders, and to finish the formatters." />
     <MESSAGE value="Added unit tests, more internal documentation, etc. Still needs thread shutdown, more docs, more appenders, and to finish the formatters." />
     <MESSAGE value="Cleaned up some JavaDoc warnings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up some JavaDoc warnings." />
+    <MESSAGE value="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate." />
+    <option name="LAST_COMMIT_MESSAGE" value="TextFormatter and LogEventGetter are now pretty well fleshed-out. Internal docs are getting done as well as unit tests, but there's more to do. The appender thread still does not terminate." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

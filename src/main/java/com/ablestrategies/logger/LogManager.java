@@ -150,7 +150,7 @@ public class LogManager {
         final String pkgClassName = packageClassName;
         allLoggers.entrySet().stream()
             .filter(entry -> entry.getKey().startsWith(pkgClassName))
-                .forEach(entry -> entry.getValue().setLogLevel(level));
+                .forEach(entry -> entry.getValue().setLevel(level));
         historyOfSetLevel.put(packageClassName, level);
     }
 
@@ -162,7 +162,7 @@ public class LogManager {
     private void applyHistoryOfSetLevel(Logger logger) {
         for(Map.Entry<String, Level> entry : historyOfSetLevel.entrySet()) {
             if(logger.getPackageClassName().startsWith(entry.getKey())) {
-                logger.setLogLevel(entry.getValue());
+                logger.setLevel(entry.getValue());
             }
         }
     }
