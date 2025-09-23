@@ -83,13 +83,24 @@ public class LogManager {
 
     /**
      * Ctor.
+     * @param dummy Placeholder, not used.
      */
-    private LogManager() {
+    private LogManager(int dummy) {
         IConfiguration configuration = new PropsConfiguration();
         String level = configuration.getString("jlogger.default.level", "Warn");
         defaultLevel = Level.fromName(level);
         this.appenderThread = new AppenderThread(configuration);
+        this.appenderThread.setDaemon(true);
         this.appenderThread.start();
+    }
+
+    /**
+     * Ctor.
+     * @apiNote LogManager is intended as a singleton, but the ctor is permitted for testing, etc..
+     */
+    public LogManager() {
+        this(0);
+        System.err.println("LogManager is a singleton, you should not call the ctor directly!");
     }
 
     /**
@@ -98,7 +109,7 @@ public class LogManager {
      */
     public static LogManager getInstance() {
         if (instance == null) {
-            instance = new LogManager();
+            instance = new LogManager(1);
         }
         return instance;
     }

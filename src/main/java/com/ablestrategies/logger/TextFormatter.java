@@ -11,7 +11,7 @@ package com.ablestrategies.logger;
  * <ul>
  * <li>  s     string </li>
  * <li>  b     boolean as T or F </li>
- * <li>  B     boolean ad True or False </li>
+ * <li>  B     boolean as True or False </li>
  * <li>  i     integer or long </li>
  * <li>  h     integer or long in hexadecimal </li>
  * <li>  f     floating point or double </li>

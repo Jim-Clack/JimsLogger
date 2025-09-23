@@ -21,6 +21,9 @@ public class AppenderThread extends Thread {
     /** If lost-message errors occur, report the first one, then every this many, */
     public static int ROLLUP_ERRORS = 1000;
 
+    /** OUt own thread. */
+    private AppenderThread appenderThread = null;
+
     /** Map of all Appenders to log to. */
     private final Map<String, IAppender> appenders = new HashMap<>();
 
@@ -33,6 +36,9 @@ public class AppenderThread extends Thread {
     /** Keep track of the count of lost-message errors. */
     private int errorCount = ROLLUP_ERRORS - 1;
 
+    /** Used for controlled shut-down. */
+    private boolean exitThread = false;
+
     /**
      * Ctor.
      * @param configuration Source of settings.
@@ -41,6 +47,7 @@ public class AppenderThread extends Thread {
         setName("JLogger-Appenders");
         populateAppenderMap(configuration);
         blockingQueue = new ArrayBlockingQueue<LogEvent>(128);
+        appenderThread = this;
     }
 
     /**
@@ -50,16 +57,21 @@ public class AppenderThread extends Thread {
     @Override
     public void run() {
         // First, log any errors that occurred during startup.
+        appenderThread = this;
         if(!startupErrors.isEmpty()) {
-            LogEvent event = new LogEvent(Level.Warn, startupErrors.toString(), null);
+            LogEvent event = new LogEvent(Level.Warn, startupErrors.toString());
             blockingQueue.add(event);
         }
+        hookShutdown();
         // Appender loop
         while(!interrupted()) {
             try {
                 LogEvent event = blockingQueue.take();
                 writeToAppenders(event);
             } catch (InterruptedException e) {
+                if(exitThread) {
+                    break;
+                }
                 if(++errorCount >= ROLLUP_ERRORS) {
                     System.err.println("\n\nJLogger AppenderThread Failure\n");
                     errorCount = 0;
@@ -99,6 +111,10 @@ public class AppenderThread extends Thread {
         }
     }
 
+    public void triggerExit() {
+        this.exitThread = true;
+    }
+
     /**
      * Populate the AppenderMap with the appenders to be called.
      * @param configuration Provided settings.
@@ -135,6 +151,27 @@ public class AppenderThread extends Thread {
         Constructor<IAppender> ctor = (Constructor<IAppender>) clazz.getConstructor(params);
         IAppender appender = ctor.newInstance(configuration);
         appenders.put(className, appender);
+    }
+
+    /**
+     * Shutdown Hook
+     * Flush the queue - write events to Appenders before allowing app to exit.
+     */
+    private void hookShutdown() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            appenderThread.triggerExit();
+            appenderThread.interrupt();
+            appendEvent(new LogEvent(Level.Info,
+                    "Logger Shutting Down as queue lgt=@1i", blockingQueue.size()));
+            while(!blockingQueue.isEmpty()) {
+                try {
+                    LogEvent event = blockingQueue.take(); // flush queue
+                    writeToAppenders(event);
+                } catch (InterruptedException e) {
+                    // ignore, as we are shutting down
+                }
+            }
+        }));
     }
 
 }
