@@ -11,12 +11,17 @@ public interface IAppender {
      * Ctor. (required)
      * @param configuration Source of settings.
      */
-    // void XxxxAppender(IConfiguration configuration);
+    // XxxxAppender(IConfiguration configuration);
 
     /**
      * Output a LogEvent to the log.
      * @param logEvent To be formatted and written.
      */
     void append(LogEvent logEvent);
+
+    /**
+     * This will be called after the last log message has been written.
+     */
+    void close();
 
 }

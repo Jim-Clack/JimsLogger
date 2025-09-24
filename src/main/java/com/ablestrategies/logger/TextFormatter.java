@@ -11,7 +11,7 @@ package com.ablestrategies.logger;
  * <ul>
  * <li>  s     string </li>
  * <li>  b     boolean as T or F </li>
- * <li>  B     boolean as True or False </li>
+ * <li>  B     boolean as true or false </li>
  * <li>  i     integer or long </li>
  * <li>  h     integer or long in hexadecimal </li>
  * <li>  f     floating point or double </li>
@@ -50,7 +50,7 @@ package com.ablestrategies.logger;
  * </ul>
  * @apiNote Class names (m, M, c, and C) include an abbreviated package prefix.
  */
-public class TextFormatter {
+public class TextFormatter implements ITextFormatter {
 
     /** The gets the substitution values from the LogEvent. */
     private LogEventStringGetter getter;
@@ -121,7 +121,7 @@ public class TextFormatter {
     private String expandMessageArg(LogEventStringGetter getter, char symbol, int argNum) {
         return switch (symbol) {
             case 's' -> getter.getStringArgumentAsString(argNum);
-            case 'b' -> getter.getBooleanArgumentAsString(argNum).substring(0, 1);
+            case 'b' -> getter.getBooleanArgumentAsString(argNum).substring(0, 1).toUpperCase();
             case 'B' -> getter.getBooleanArgumentAsString(argNum);
             case 'i' -> getter.getLongArgumentAsString(argNum);
             case 'h' -> getter.getHexArgumentAsString(argNum);

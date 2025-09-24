@@ -17,12 +17,12 @@ class PropsConfigurationTest {
         prevAppenders = System.getProperty("jlogger.appenders.list", "");
         prevPrefix = System.getProperty("jlogger.console.prefix", "");
         prevLevel = System.getProperty("jlogger.default.level", "");
-        prevMax = System.getProperty("jlogger.max.filesize", "");
+        prevMax = System.getProperty("jlogger.logfile.kmaxsize", "");
         // test values
         System.setProperty("jlogger.appenders.list", "appender1,appender2");
         System.setProperty("jlogger.console.prefix", "[prefix]");
         System.setProperty("jlogger.default.level", "Info");
-        System.setProperty("jlogger.max.filesize", "12345");
+        System.setProperty("jlogger.logfile.kmaxsize", "100");
         // do it...
         configuration = new PropsConfiguration();
     }
@@ -33,7 +33,7 @@ class PropsConfigurationTest {
         System.setProperty("jlogger.appenders.list", prevAppenders);
         System.setProperty("jlogger.console.prefix", prevPrefix);
         System.setProperty("jlogger.default.level", prevLevel);
-        System.setProperty("jlogger.max.filesize", prevMax);
+        System.setProperty("jlogger.logfile.kmaxsize", prevMax);
     }
 
     @org.junit.jupiter.api.Test
@@ -50,10 +50,10 @@ class PropsConfigurationTest {
     }
 
     @org.junit.jupiter.api.Test
-    void getInteger() {
-        int i = configuration.getInteger("jlogger.max.filesize", 0);
-        System.out.println("Testing PropsConfiguration.getString jlogger.max.filesize (" + i + ")");
-        assertEquals(12345, i);
+    void getLong() {
+        long i = configuration.getLong("jlogger.logfile.kmaxsize", 0);
+        System.out.println("Testing PropsConfiguration.getString jlogger.logfile.kmaxsize (" + i + ")");
+        assertEquals(100, i);
     }
 
 }

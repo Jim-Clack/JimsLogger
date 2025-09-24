@@ -10,12 +10,11 @@ public class ConsoleAppender implements IAppender {
 
     /**
      * Ctor.
-     * @param config Source of settings.
+     * @param configuration Source of settings.
      */
-    public ConsoleAppender(IConfiguration config) {
-        String prefix = config.getString("jlogger.console.prefix", "@U @c [@L]: ");
+    public ConsoleAppender(IConfiguration configuration) {
+        String prefix = configuration.getString("jlogger.console.prefix", "@U @c [@L]: ");
         textFormatter = new TextFormatter(prefix);
-
     }
 
     /**
@@ -24,6 +23,13 @@ public class ConsoleAppender implements IAppender {
      */
     public void append(LogEvent logEvent) {
         System.err.println(textFormatter.format(logEvent));
+    }
+
+    /**
+     * This will be called after the last log message has been written.
+     */
+    public void close() {
+        // not needed for this
     }
 
 }

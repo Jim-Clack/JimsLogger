@@ -4,9 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 /**
- * LogEventBaseGetter - Base class for LogEventXxxGetters that are needed by Formatters.
+ * BaseLogEventXxxGetter - Base class for LogEventXxxGetters that are needed by Formatters.
  */
-public class LogEventBaseGetter {
+public class BaseLogEventGetter {
 
     /** LogEvent to "get" the requested fields from. */
     protected final LogEvent event;
@@ -15,7 +15,7 @@ public class LogEventBaseGetter {
      * Ctor.
      * @param event LogEvent to "get" the requested fields from.
      */
-    public LogEventBaseGetter(LogEvent event) {
+    public BaseLogEventGetter(LogEvent event) {
         this.event = event;
     }
 

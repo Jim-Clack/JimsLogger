@@ -13,7 +13,7 @@ public class PropsConfiguration implements IConfiguration {
      * @return The configured value or, if not found, the defaultValue.
      */
     public String getString(String key, String defaultValue) {
-        return System.getProperty(key, defaultValue);
+        return System.getProperty(key, defaultValue).trim();
     }
 
     /**
@@ -22,7 +22,7 @@ public class PropsConfiguration implements IConfiguration {
      * @param defaultValue default value to be used if the key or value is missing
      * @return The configured value or, if not found, the defaultValue.
      */
-    public int getInteger(String key, int defaultValue) {
+    public long getLong(String key, long defaultValue) {
         String stringValue = System.getProperty(key, "" + defaultValue);
         try {
             return Integer.parseInt(stringValue);

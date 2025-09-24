@@ -64,18 +64,16 @@ public class AppenderThread extends Thread {
         }
         hookShutdown();
         // Appender loop
-        while(!interrupted()) {
+        while(!interrupted() && !exitThread) {
+            if(blockingQueue.isEmpty()) {
+                wait100ms();
+                continue;
+            }
             try {
                 LogEvent event = blockingQueue.take();
                 writeToAppenders(event);
             } catch (InterruptedException e) {
-                if(exitThread) {
-                    break;
-                }
-                if(++errorCount >= ROLLUP_ERRORS) {
-                    System.err.println("\n\nJLogger AppenderThread Failure\n");
-                    errorCount = 0;
-                }
+                // will terminate "while" loop
             }
         }
         interrupt();
@@ -140,7 +138,7 @@ public class AppenderThread extends Thread {
      * Add an Appender to the appenders map.
      * @param configuration Provided settings.
      * @param className Name of Appender class to be added.
-     * @throws Exception If appender cannot be found, we lack permission, or other problem.
+     * @throws Exception If appender cannot be found, lacks permission, is not an IAppender, etc.
      * @implNote Called by other threads, not the Appender thread.
      */
     @SuppressWarnings("unchecked")
@@ -161,8 +159,8 @@ public class AppenderThread extends Thread {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             appenderThread.triggerExit();
             appenderThread.interrupt();
-            appendEvent(new LogEvent(Level.Info,
-                    "Logger Shutting Down as queue lgt=@1i", blockingQueue.size()));
+            appendEvent(new LogEvent(Level.Trace,
+                    "Logger shutting down after dequeuing " + blockingQueue.size() + " events"));
             while(!blockingQueue.isEmpty()) {
                 try {
                     LogEvent event = blockingQueue.take(); // flush queue
@@ -171,7 +169,22 @@ public class AppenderThread extends Thread {
                     // ignore, as we are shutting down
                 }
             }
+            for(Map.Entry<String, IAppender> entry : appenders.entrySet()) {
+                IAppender appender = entry.getValue();
+                appender.close();
+            }
         }));
+    }
+
+    /**
+     * Wait a few milliseconds.
+     */
+    private void wait100ms() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.yield();
+        }
     }
 
 }
