@@ -3,7 +3,6 @@ package com.ablestrategies.logger;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -82,6 +82,7 @@ public class TextFormatter implements ITextFormatter {
                 char ch = message.charAt(++messagePos);
                 if(Character.isDigit(ch)) {
                     argNum = ch - '0';
+                    ++messagePos;
                 }
                 buffer.append(expandSymbol(getter, message.charAt(messagePos), argNum));
             } else {

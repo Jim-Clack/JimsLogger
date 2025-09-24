@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet.">
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="(Refinement, clearing up some warnings) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/BaseLogEventGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/BaseLogEventGetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ITextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ITextFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogfileAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogfileAppender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogfileAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" afterDir="false" />
     </list>
@@ -193,7 +188,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="80020000" />
+      <workItem from="1758468451225" duration="80783000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -307,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758726093628</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="(Refinement, clearing up some warnings) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet.">
+      <option name="closed" value="true" />
+      <created>1758726379281</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1758726379281</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,7 +342,8 @@
     <MESSAGE value="(Fixed a Thread Shutdown issue) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: More Appenders and there is no slf4j API yet." />
     <MESSAGE value="(Added printlns to unit tests) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: More Appenders and there is no slf4j API yet." />
     <MESSAGE value="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
+    <MESSAGE value="(Refinement, clearing up some warnings) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
+    <option name="LAST_COMMIT_MESSAGE" value="(Refinement, clearing up some warnings) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

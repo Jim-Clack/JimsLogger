@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  *  <li> jlogger.logfile.backups  "10"                  See FileAppender.java </li>
  * </ul>
  **/
-public class LogfileAppender implements IAppender {
+public class LogFileAppender implements IAppender {
 
     /** We need this to format LogEvents into textual messages. */
     private final TextFormatter textFormatter;
@@ -31,7 +31,7 @@ public class LogfileAppender implements IAppender {
      * Ctor. (required)
      * @param configuration Source of settings.
      */
-    public LogfileAppender(IConfiguration configuration) {
+    public LogFileAppender(IConfiguration configuration) {
         String prefix = configuration.getString("jlogger.logfile.prefix", "@t @c [@L]: ");
         rootFilename = configuration.getString("jlogger.logfile.name", "jlog").trim();
         maxFileSize = configuration.getLong("jlogger.logfile.kfilesize", 100) * 1024;
