@@ -17,7 +17,7 @@ class LogEventTest {
         LocalDateTime now;
         do {
             now = LocalDateTime.now();
-        } while (now.get(ChronoField.SECOND_OF_MINUTE) > 57);
+        } while (now.getSecond() > 57);
         // create the event now
         event = new LogEvent(Level.Diag, "ABCDEFG", new ArithmeticException("EXC"));
     }

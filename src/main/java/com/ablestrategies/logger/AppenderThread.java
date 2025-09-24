@@ -46,7 +46,7 @@ public class AppenderThread extends Thread {
     public AppenderThread(IConfiguration configuration) {
         setName("JLogger-Appenders");
         populateAppenderMap(configuration);
-        blockingQueue = new ArrayBlockingQueue<LogEvent>(128);
+        blockingQueue = new ArrayBlockingQueue<>(128);
         appenderThread = this;
     }
 

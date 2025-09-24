@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogEventStringGetterTest {
 
-    private LogEvent event;
     private LogEventStringGetter getter;
     private LocalDateTime now;
     private LocalDateTime later;
@@ -32,7 +31,7 @@ class LogEventStringGetterTest {
             }
         }
         // create the event now
-        event = new LogEvent(Level.Diag, "ABCDEFG @1e @2s @3h",
+        LogEvent event = new LogEvent(Level.Diag, "ABCDEFG @1e @2s @3h",
                 new ArithmeticException("EXC"), "Test", 1024, -1.234, true, Level.Diag, now);
         getter = new LogEventStringGetter(event);
         later = now.plusSeconds(3);

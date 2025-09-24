@@ -53,11 +53,8 @@ package com.ablestrategies.logger;
  */
 public class TextFormatter implements ITextFormatter {
 
-    /** The gets the substitution values from the LogEvent. */
-    private LogEventStringGetter getter;
-
     /** Default prefix for all messages. */
-    private String prefix = "@t @c [@L]: ";
+    private String prefix;
 
     /**
      * Ctor.
@@ -73,7 +70,8 @@ public class TextFormatter implements ITextFormatter {
      * @return The resultant textual message.
      */
     public String format(LogEvent logEvent) {
-        getter = new LogEventStringGetter(logEvent);
+        /** The gets the substitution values from the LogEvent. */
+        LogEventStringGetter getter = new LogEventStringGetter(logEvent);
         String message = prefix + getter.getMessage();
         StringBuilder buffer = new StringBuilder();
         int messageLgt = message.length();
@@ -84,7 +82,6 @@ public class TextFormatter implements ITextFormatter {
                 char ch = message.charAt(++messagePos);
                 if(Character.isDigit(ch)) {
                     argNum = ch - '0';
-                    ch = message.charAt(++messagePos);
                 }
                 buffer.append(expandSymbol(getter, message.charAt(messagePos), argNum));
             } else {

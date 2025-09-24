@@ -5,8 +5,8 @@ package com.ablestrategies.logger;
  */
 public interface ITextFormatter {
 
-    /**
-     * Ctor. (REquired for dynamic loading)
+    /*
+     * Ctor. (Required for dynamic loading)
      * @param prefix The message prefix, or null to accept the default.
      */
     // ITextFormatter(String prefix);

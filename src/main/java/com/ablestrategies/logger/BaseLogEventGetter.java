@@ -1,8 +1,5 @@
 package com.ablestrategies.logger;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 /**
  * BaseLogEventXxxGetter - Base class for LogEventXxxGetters that are needed by Formatters.
  */

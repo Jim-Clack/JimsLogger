@@ -1,6 +1,5 @@
 package com.ablestrategies.logger;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDateTime;
@@ -11,9 +10,7 @@ class TextFormatterTest {
 
     private TextFormatter textFormatter;
     private LogEvent event;
-    private LogEventStringGetter getter;
     private LocalDateTime now;
-    private LocalDateTime later;
 
     @BeforeEach
     void setUp() {

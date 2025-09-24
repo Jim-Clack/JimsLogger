@@ -7,7 +7,7 @@ package com.ablestrategies.logger;
  */
 public interface IAppender {
 
-    /**
+    /*
      * Ctor. (required)
      * @param configuration Source of settings.
      */
