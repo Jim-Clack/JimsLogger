@@ -34,8 +34,9 @@ It is customizable via configuration settings or by extending classes or impleme
  `getInstance();            // static (singleton)`
 
  `getLogger();              // for current class`    
- `getLogger(clazz);         // for specified class`      
- `getLogger("x.y.Z");       // for specified class`
+ `getLogger(Xyz.class);     // for specified class`      
+ `getLogger("x.y.Z");       // for specified class`   
+ `getLogger("issue321");    // specialized logging`
 
  `setLevel(level, "x.y.Z"); // for specified class`    
  `setLevel(level, "x.y")    // all classes in x.y`   
@@ -93,10 +94,11 @@ All replacement symbols begin with @, followed by (A) or (B) below
 
 Please note that...    
 
- * If a value is null then typically it will be replaced with (null)
- * If a value is cannot be processed then it will be replaced with ###
- * If a symbol is corrupt then it will be replaced with ???
- * Class names (m, M, c, and C) include an abbreviated package prefix 
+ * If a value is null then typically it will be replaced with (null)  
+ * If a value is cannot be processed then it will be replaced with ###  
+ * If a symbol is corrupt then it will be replaced with ???   
+ * Some symbols have a different meaning when used with an arg#  
+ * Class names (m, M, c, and C) include an abbreviated package prefix   
 
 ### TO-DO ###
 

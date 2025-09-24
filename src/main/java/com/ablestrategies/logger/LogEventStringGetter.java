@@ -47,7 +47,8 @@ public class LogEventStringGetter extends LogEventTypedGetter {
     public String getTimestampLocalTimeAsString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
                 .withLocale(Locale.US);
-        return event.timestamp.format(formatter);
+        // DateTimeFormatter inserts an &nnbsp;, so we have to get rid of it...
+        return event.timestamp.format(formatter).replaceAll("[\\u202F]", "");
     }
 
     /**

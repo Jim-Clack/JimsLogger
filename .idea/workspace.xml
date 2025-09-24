@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="[COMPLETED] It would be nice to add more unit tests, and comments, and appenders. TODO: there is no slf4j API yet.">
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="[COMPLETED] Added a readme.md (further notes may be found there)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +88,7 @@
       <recent name="com.ablestrategies.logger" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.logger in JimsLogger">
+  <component name="RunManager">
     <configuration name="LogEventGetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JimsLogger" />
       <extension name="coverage">
@@ -185,7 +186,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="95753000" />
+      <workItem from="1758468451225" duration="97396000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -323,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758741618378</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="[COMPLETED] Added a readme.md (further notes may be found there)">
+      <option name="closed" value="true" />
+      <created>1758754149920</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1758754149920</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,7 +367,8 @@
     <MESSAGE value="(Refinement, clearing up some warnings) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
     <MESSAGE value="[LogFileAppender is not yet complete] More unit tests, and comments, and appenders would be nice. TODO: there is no slf4j API yet." />
     <MESSAGE value="[COMPLETED] It would be nice to add more unit tests, and comments, and appenders. TODO: there is no slf4j API yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="[COMPLETED] It would be nice to add more unit tests, and comments, and appenders. TODO: there is no slf4j API yet." />
+    <MESSAGE value="[COMPLETED] Added a readme.md (further notes may be found there)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[COMPLETED] Added a readme.md (further notes may be found there)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
