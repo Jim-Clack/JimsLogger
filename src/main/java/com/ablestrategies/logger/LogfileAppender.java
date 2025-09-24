@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * FileAppender - Log writer that outputs events in textual form to rolling logfiles
+ * LogfileAppender - Log writer that outputs events in textual form to rolling logfiles
  * <p/><br/>
  * Additional Configuration Settings...<ul>
  *  <li> jlogger.logfile.prefix   "@X [@L] @C: "        See TextFormatter.java </li>
@@ -33,7 +33,7 @@ public class LogfileAppender implements IAppender {
      * @param configuration Source of settings.
      */
     public LogfileAppender(IConfiguration configuration) {
-        String prefix = configuration.getString("jlogger.logfile.prefix", "@U @c [@L]: ");
+        String prefix = configuration.getString("jlogger.logfile.prefix", "@t @c [@L]: ");
         rootFilename = configuration.getString("jlogger.logfile.name", "jlog").trim();
         maxFileSize = configuration.getLong("jlogger.logfile.kfilesize", 100) * 1024;
         maxBackups = configuration.getLong("jlogger.logfile.backups", 10);
@@ -54,18 +54,27 @@ public class LogfileAppender implements IAppender {
         try {
             writer.write(message);
         } catch (IOException e) {
-            // TODO
+            Support.handleLoggerError(true, "LogfileAppender cannot write to file", e);
         }
     }
 
+    /**
+     * Handle rolling backups.
+     */
     private void handleRollover() {
-        // TODO
+        // TODO finish code herein
     }
 
+    /**
+     * Open a new writer - overwriting the oldest backup.
+     */
     private void openLogfile() {
         String filename = filenamesSortNewestFirst()[0];
         String header = filename + " " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         try {
+            if(writer != null) {
+                writer.close();
+            }
             writer = new FileWriter(filename);
             writer.write(header + System.lineSeparator());
         } catch (IOException e) {
@@ -73,8 +82,12 @@ public class LogfileAppender implements IAppender {
         }
     }
 
+    /**
+     * Get a list of all logfile/backups names, sorted newest one first.
+     * @return The lust of filenames with the newest one first.
+     */
     private String[] filenamesSortNewestFirst() {
-        String filename = rootFilename + (100001 % maxBackups) + ".log";
+        String filename = rootFilename + 1 + ".log";
         return new String[] { filename };
     }
 
@@ -85,7 +98,7 @@ public class LogfileAppender implements IAppender {
         try {
             writer.close();
         } catch (IOException e) {
-            // TODO
+            // at this point, we can only ignore it.
         }
     }
 

@@ -1,7 +1,5 @@
 package com.ablestrategies.logger;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +25,7 @@ public class LogEventStringGetter extends LogEventTypedGetter {
      * @return Example: "9/23/25, 1:26PM" (depending on locale)
      */
     public String getTimestampLocalDateTimeAsString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                 .withLocale(Locale.US);
         return event.timestamp.format(formatter);
     }
@@ -37,7 +35,7 @@ public class LogEventStringGetter extends LogEventTypedGetter {
      * @return Example: "9/23/25" (depending on locale)
      */
     public String getTimestampLocalDateAsString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
                 .withLocale(Locale.US);
         return event.timestamp.format(formatter);
     }
@@ -47,7 +45,7 @@ public class LogEventStringGetter extends LogEventTypedGetter {
      * @return Example: "1:26PM" (depending on locale)
      */
     public String getTimestampLocalTimeAsString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
                 .withLocale(Locale.US);
         return event.timestamp.format(formatter);
     }
@@ -59,6 +57,14 @@ public class LogEventStringGetter extends LogEventTypedGetter {
     public String getTimestampUtcDateTimeAsString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
         return event.timestamp.atOffset(ZoneOffset.UTC).format(formatter);
+    }
+
+    /**
+     * Get the tinestamp in nanoseconds.
+     * @return Nanos.
+     */
+    public String getTimestampNanosAsString() {
+        return "" + event.timestamp.getNano();
     }
 
     /**
@@ -165,7 +171,7 @@ public class LogEventStringGetter extends LogEventTypedGetter {
         Object arg = getArgumentAsObject(oneBasedIndex);
         String result = "(null)";
         if(arg != null && LocalDateTime.class.isAssignableFrom(arg.getClass())) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                     .withLocale(Locale.US);
             result = ((LocalDateTime) arg).format(formatter);
         }
@@ -210,11 +216,7 @@ public class LogEventStringGetter extends LogEventTypedGetter {
         Object arg = getArgumentAsObject(oneBasedIndex);
         String result = "(null)";
         if(arg != null && Throwable.class.isAssignableFrom(arg.getClass())) {
-            final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            try (PrintStream printStream = new PrintStream(buffer)) {
-                ((Throwable)arg).printStackTrace(printStream);
-            }
-            result = buffer.toString();
+            result = Support.getStackTraceAsString((Throwable)arg);
         }
         return result;
     }

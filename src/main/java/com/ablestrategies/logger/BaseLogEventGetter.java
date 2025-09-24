@@ -88,11 +88,7 @@ public class BaseLogEventGetter {
      */
     public String getThrowableStackDump() {
         if(event.throwable != null) {
-            final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            try (PrintStream printStream = new PrintStream(buffer)) {
-                event.throwable.printStackTrace(printStream);
-            }
-            return buffer.toString();
+            return Support.getStackTraceAsString(event.throwable);
         }
         return null;
     }

@@ -13,9 +13,9 @@ public class Main {
         LogManager.getInstance().setLevel(Level.Diag, "com.ablestrategies.logmain");
 
         Logger logger1 = LogManager.getInstance().getLogger(); // this
-        Logger logger2 = LogManager.getInstance().getLogger("com.ablestrategies"); // no
+        Logger logger2 = LogManager.getInstance().getLogger("com.ablestrategies");
         Logger logger3 = LogManager.getInstance().getLogger("com.ablestrategies.logmain.Main"); // this
-        Logger logger4 = LogManager.getInstance().getLogger("com.ablestrategies.logger"); // no
+        Logger logger4 = LogManager.getInstance().getLogger("com.ablestrategies.logger");
 
         logger1.DIAG("Logger1 (@1s=@2s) 1a - it should log", logger1.getPackageClassName(), logger1.getLevel().name());
         logger1.WARN("Logger1 (@1s=@2s) 1b - it should log", logger1.getPackageClassName(), logger1.getLevel().name());

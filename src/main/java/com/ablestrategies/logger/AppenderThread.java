@@ -130,6 +130,7 @@ public class AppenderThread extends Thread {
                     continue;
                 }
                 startupErrors.append("\n").append(e.getMessage()).append(" ").append(className);
+                Support.handleLoggerError(false, "AppenderThread cannot Append " + className, e);
             }
         }
     }
@@ -166,7 +167,8 @@ public class AppenderThread extends Thread {
                     LogEvent event = blockingQueue.take(); // flush queue
                     writeToAppenders(event);
                 } catch (InterruptedException e) {
-                    // ignore, as we are shutting down
+                    Support.handleLoggerError(false, "AppenderThread interrupted", null);
+                    Thread.yield();
                 }
             }
             for(Map.Entry<String, IAppender> entry : appenders.entrySet()) {

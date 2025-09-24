@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,7 +65,7 @@ class LogEventStringGetterTest {
         System.out.println("Testing LogEventStringGetter.getTimestampLocalDateTimeAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.contains("" + (now.getYear() % 100)));
-        assertTrue(str.contains("" + now.getMonth().getValue()));
+        assertTrue(str.contains(now.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault())));
         assertTrue(str.contains("" + now.getDayOfMonth()));
         assertTrue(str.contains("" + now.getHour()) || str.contains("" + (now.getHour() % 12)));
         assertTrue(str.contains("" + now.getMinute()));
@@ -73,9 +75,8 @@ class LogEventStringGetterTest {
     void testGetTimestampLocalDateAsString() {
         String str = getter.getTimestampLocalDateAsString();
         System.out.println("Testing LogEventStringGetter.getTimestampLocalDateAsString (" + str + ")");
-        assertNotNull(str);
         assertTrue(str.contains("" + (now.getYear() % 100)));
-        assertTrue(str.contains("" + now.getMonth().getValue()));
+        assertTrue(str.contains(now.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault())));
         assertTrue(str.contains("" + now.getDayOfMonth()));
     }
 
@@ -168,7 +169,7 @@ class LogEventStringGetterTest {
         System.out.println("Testing LogEventStringGetter.getLocalDateTimeArgumentAsString (" + str + ")");
         assertNotNull(str);
         assertTrue(str.contains("" + (now.getYear() % 100)));
-        assertTrue(str.contains("" + now.getMonth().getValue()));
+        assertTrue(str.contains(now.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault())));
         assertTrue(str.contains("" + now.getDayOfMonth()));
         assertTrue(str.contains("" + now.getHour()) || str.contains("" + (now.getHour() % 12)));
         assertTrue(str.contains("" + now.getMinute()));
@@ -185,6 +186,15 @@ class LogEventStringGetterTest {
         assertTrue(str.contains("" + utc.getDayOfMonth()));
         assertTrue(str.contains("" + utc.getHour()));
         assertTrue(str.contains("" + utc.getMinute()));
+    }
+
+    @Test
+    void testGetTimestampNanosAsString() {
+        String str = getter.getTimestampNanosAsString();
+        System.out.println("Testing LogEventStringGetter.getGetTimestampNanosAsString (" + str + ")");
+        long nanos = Long.parseLong(str);
+        assertTrue(nanos >= now.getNano());
+        assertTrue(nanos <= later.getNano());
     }
 
     @Test

@@ -13,7 +13,7 @@ public class ConsoleAppender implements IAppender {
      * @param configuration Source of settings.
      */
     public ConsoleAppender(IConfiguration configuration) {
-        String prefix = configuration.getString("jlogger.console.prefix", "@U @c [@L]: ");
+        String prefix = configuration.getString("jlogger.console.prefix", "@t @c [@L]: ");
         textFormatter = new TextFormatter(prefix);
     }
 

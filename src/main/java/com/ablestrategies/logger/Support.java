@@ -1,16 +1,20 @@
 package com.ablestrategies.logger;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 /**
  * Support - Static support methods.
  */
 class Support {
 
     /** Package names get abbreviated to this length. */
-    public static int MAX_ABBREV_LGT = 16;
+    static int MAX_ABBREV_LGT = 16;
 
     /**
      * Get the Caller's stack trace element.
      * @return Most recent stack trace element not in the Logger package.
+     * @apiNote [static] method
      */
     static StackTraceElement getCallerStackTraceElement() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -24,12 +28,27 @@ class Support {
     }
 
     /**
+     * Get a man-readable version of an exception stack trace.
+     * @param throwable The exception.
+     * @return String containing the stack trace.
+     * @apiNote [static] method
+     */
+    static String getStackTraceAsString(Throwable throwable) {
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        try (PrintStream printStream = new PrintStream(buffer)) {
+            throwable.printStackTrace(printStream);
+        }
+        return buffer.toString();
+    }
+
+    /**
      * Abbreviate a dotted string, typically a package name,
      * @param dottedString String to be abbreviated. If not empty, it should end with a dot.
      * @return Abbreviated version, still ending with the original dot.
+     * @apiNote [static] method
      */
     static String abbreviate(String dottedString) {
-        if(dottedString.length() > MAX_ABBREV_LGT*2) {
+        if(dottedString.length() > MAX_ABBREV_LGT*2) { // if really long, strip out some vowels
             dottedString = dottedString.replaceAll("([^.])[aeiou]", "$1");
         }
         int nextDotPosition = dottedString.indexOf(".");
@@ -52,6 +71,7 @@ class Support {
      * @param showClass true to include the class name
      * @param abbreviate true to abbreviate the package name
      * @return the desired path as a dot-delimited string
+     * @apiNote [static] method
      */
     static String assembleCallerPath(LogEventStringGetter getter, boolean showPackage, boolean showClass, boolean abbreviate) {
         String result = getter.getClassName();
@@ -73,6 +93,37 @@ class Support {
             result = methodName;
         }
         return result;
+    }
+
+    /**
+     * Serious internal errors are dealt with here.
+     * @param critical True if a notification must be made immediately.
+     * @param message Description of the problem.
+     * @param throwable Optional exception, or pass null.
+     * @apiNote Property "jlogger.error.handling" may be set to...
+     *   "silent", "console", "syserror", or "exception"
+     *   (default is "syserror")
+     */
+    public static void handleLoggerError(boolean critical, String message, Throwable throwable) {
+        // This must be a property, regardless of the IConfiguration implementation
+        String handling = System.getProperty("jlogger.error.handling", "syserror");
+        if(handling.equals("silent") && !critical) {
+            return;
+        }
+        PrintStream stream = System.err;
+        if(handling.equals("console")) {
+            stream = System.out;
+        }
+        if(critical) {
+            stream.println("\n-----------\nCRITICAL" + message);
+        }
+        stream.println("JLogger internal error: " + message);
+        if(throwable != null) {
+            stream.println(Support.getStackTraceAsString(throwable));
+        }
+        if(handling.equals("exception")) {
+            throw new RuntimeException("Logger Exception", throwable);
+        }
     }
 
 }

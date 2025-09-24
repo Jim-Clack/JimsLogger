@@ -4,24 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="(Added printlns to unit tests) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: More Appenders and there is no slf4j API yet.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ITextFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogfileAppender.java" afterDir="false" />
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/BaseLogEventGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/BaseLogEventGetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ConsoleAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IAppender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/IConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventBaseGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/BaseLogEventGetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventTypedGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventTypedGetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/PropsConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/PropsConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogfileAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogfileAppender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/Support.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LoggingSupportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/SupportTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/PropsConfigurationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/PropsConfigurationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +48,9 @@
     "accountId": "ca7e9aa5-f7c2-4e41-ad4c-49273b01a703"
   }
 }]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -197,7 +195,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="74694000" />
+      <workItem from="1758468451225" duration="79701000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -295,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758669335060</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet.">
+      <option name="closed" value="true" />
+      <created>1758721079342</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1758721079342</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +332,8 @@
     <MESSAGE value="(Fixed a bug in applyLogLevels) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Appender thread still does not shut down and there is no slf4j API yet." />
     <MESSAGE value="(Fixed a Thread Shutdown issue) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: More Appenders and there is no slf4j API yet." />
     <MESSAGE value="(Added printlns to unit tests) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: More Appenders and there is no slf4j API yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="(Added printlns to unit tests) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: More Appenders and there is no slf4j API yet." />
+    <MESSAGE value="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
+    <option name="LAST_COMMIT_MESSAGE" value="(Refactoring, refining) - Fully functional with all features for logging to the Console. Includes unit tests and thorough internal documentation, although more would be nice. TODO: Finish LogfileAppender, and there is no slf4j API yet." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -344,7 +351,7 @@
       <configuration name="Application">
         <watch expression="packageClassName" />
       </configuration>
-      <inline-watch fileUrl="file://$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" line="165">
+      <inline-watch fileUrl="file://$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogManager.java" line="168">
         <watch expression="pkgClassName" />
       </inline-watch>
     </watches-manager>

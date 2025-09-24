@@ -42,7 +42,7 @@ import java.util.Map;
  * <p>
  * An elegant way to apply the hierarchy of setLevel() calls is to maintain a directed graph
  * that can be used dynamically by Logger.log(). The problem with that approach, however, is
- * that the evaluation will occur during the Logger.log() call and that is the most time-
+ * that the evaluation will occur during the Logger.log() call and that is the most time
  * critical method in the package. Please understand that setLevel() and get getLogger() are
  * called very occasionally, but Logger.log() is called frequently and sometimes in a loop.
  * Moreover, the user has an expectation that Logger.log() performance will not drastically
@@ -76,7 +76,7 @@ public class LogManager {
     private final Map<String, Logger> allLoggers = new HashMap<>();
 
     /** A map of the setLevel() history. */
-    private final List<KeyValuePair<String, Level>> historyOfSetLevel = new LinkedList<KeyValuePair<String, Level>>();
+    private final List<KeyValuePair<String, Level>> historyOfSetLevel = new LinkedList<>();
 
     /** Background appender thread. */
     private final AppenderThread appenderThread;
@@ -85,6 +85,7 @@ public class LogManager {
      * Ctor.
      * @param dummy Placeholder, not used.
      */
+    @SuppressWarnings("all")
     private LogManager(int dummy) {
         IConfiguration configuration = new PropsConfiguration();
         String level = configuration.getString("jlogger.default.level", "Warn");
@@ -96,8 +97,9 @@ public class LogManager {
 
     /**
      * Ctor.
-     * @apiNote LogManager is intended as a singleton, but the ctor is permitted for testing, etc..
+     * @apiNote LogManager is intended as a singleton, but the ctor is permitted for testing, etc.
      */
+    @SuppressWarnings("unused")
     public LogManager() {
         this(0);
         System.err.println("LogManager is a singleton, you should not call the ctor directly!");
@@ -128,6 +130,7 @@ public class LogManager {
      * @param packageClass Class to use as the Logger name. ("package.class" as returned by clazz.getName())
      * @return corresponding Logger
      */
+    @SuppressWarnings("unused")
     public Logger getLogger(Class<?> packageClass) {
         String packageClassName = packageClass.getName();
         return getLogger(packageClassName);
@@ -165,7 +168,7 @@ public class LogManager {
         allLoggers.entrySet().stream()
             .filter(entry -> entry.getKey().startsWith(pkgClassName))
                 .forEach(entry -> entry.getValue().setLevel(level));
-        historyOfSetLevel.add(new KeyValuePair<String, Level>(packageClassName, level));
+        historyOfSetLevel.add(new KeyValuePair<>(packageClassName, level));
     }
 
     /**

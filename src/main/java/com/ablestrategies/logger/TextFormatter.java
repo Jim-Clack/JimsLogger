@@ -23,23 +23,24 @@ package com.ablestrategies.logger;
  * <li>  o     object/array dump, shallow </li>
  * <li>  O     object/array dump, deep (not yet implemented) </li>
  * </ul> <br/>
- * (B) The following are NOT passed as vararg values </li>
+ * (B) The following are from the LogEvent, NOT vararg arg values </li>
  * <ul>
  * <li>  l     LogLevel value </li>
  * <li>  L     LogLevel name </li>
- * <li>  d     date short local form </li>
- * <li>  D     date long UTC form </li>
- * <li>  t     time short local form </li>
- * <li>  T     time long UTC form </li>
- * <li>  u     date and time short local form </li>
- * <li>  U     date and time UTC form </li>
+ * <li>  d     timestamp date short local form </li>
+ * <li>  D     timestamp date long UTC form </li>
+ * <li>  t     timestamp time short local form </li>
+ * <li>  T     timestamp time long UTC form </li>
+ * <li>  u     timestamp ate and time short local form </li>
+ * <li>  U     timestamp date and time UTC form </li>
+ * <li>  n     timestamp nanoseconds </li>
  * <li>  e     exception message </li>
  * <li>  E     exception message and trace </li>
  * <li>  m     calling method name </li>
  * <li>  c     calling class.method name </li>
  * <li>  p     calling package.class.method name </li>
  * <li>  p     calling package.class.method name (package not abbreviated) </li>
- * <li>  h     thread name </li>
+ * <li>  h     calling thread name </li>
  * <li>  @     two @-signs (@@) are escaped to a single @ </li>
  * </ul>
  * <h4> Please note that... </h4>
@@ -56,16 +57,14 @@ public class TextFormatter implements ITextFormatter {
     private LogEventStringGetter getter;
 
     /** Default prefix for all messages. */
-    private String prefix = "@U [@L] @p: ";
+    private String prefix = "@t @c [@L]: ";
 
     /**
      * Ctor.
-     * @param prefix The message prefix, or null to accept the default.
+     * @param prefix The message prefix.
      */
     public TextFormatter(String prefix) {
-        if(prefix != null) {
-            this.prefix = prefix;
-        }
+        this.prefix = prefix;
     }
 
     /**
@@ -153,6 +152,7 @@ public class TextFormatter implements ITextFormatter {
             case 'T' -> getter.getTimestampUtcTimeAsString();
             case 'u' -> getter.getTimestampLocalDateTimeAsString();
             case 'U' -> getter.getTimestampUtcDateTimeAsString();
+            case 'n' -> getter.getTimestampNanosAsString();
             case 'e' -> getter.getThrowableMessage();
             case 'E' -> getter.getThrowableStackDump();
             case 'm' -> Support.assembleCallerPath(getter, false, false, true);
