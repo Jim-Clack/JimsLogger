@@ -20,6 +20,11 @@ public interface IAppender {
     void append(LogEvent logEvent);
 
     /**
+     * Notification that the app is shutting down, giving time to flush before close() is called.
+     */
+    void notifyShutdown();
+
+    /**
      * This will be called after the last log message has been written.
      */
     void close();

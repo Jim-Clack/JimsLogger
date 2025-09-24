@@ -39,6 +39,9 @@ public class AppenderThread extends Thread {
     /** Used for controlled shut-down. */
     private boolean exitThread = false;
 
+    /** Is the app shutting down? */
+    private boolean shutdownInProgress = false;
+
     /**
      * Ctor.
      * @param configuration Source of settings.
@@ -65,7 +68,7 @@ public class AppenderThread extends Thread {
         hookShutdown();
         // Appender loop
         while(!interrupted() && !exitThread) {
-            if(blockingQueue.isEmpty()) {
+            if(blockingQueue.isEmpty() && !shutdownInProgress) {
                 wait100ms();
                 continue;
             }
@@ -158,6 +161,13 @@ public class AppenderThread extends Thread {
      */
     private void hookShutdown() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            for(Map.Entry<String, IAppender> entry : appenders.entrySet()) {
+                IAppender appender = entry.getValue();
+                appender.notifyShutdown();
+                shutdownInProgress = true;
+                wait100ms();
+            }
+            wait100ms(); // Wait for the dequeue to be consumed
             appenderThread.triggerExit();
             appenderThread.interrupt();
             appendEvent(new LogEvent(Level.Trace,

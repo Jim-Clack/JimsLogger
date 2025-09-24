@@ -26,6 +26,13 @@ public class ConsoleAppender implements IAppender {
     }
 
     /**
+     * Notification that the app is shutting down, giving time to flush before close() is called.
+     */
+    public void notifyShutdown() {
+
+    }
+
+    /**
      * This will be called after the last log message has been written.
      */
     public void close() {

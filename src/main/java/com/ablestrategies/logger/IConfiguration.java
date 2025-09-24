@@ -7,7 +7,7 @@ package com.ablestrategies.logger;
  * <li> jlogger.default.level    "Warn"                See LogLevel.java </li>
  * <li> jlogger.console.prefix   "@t @c [@L]: "        See TextFormatter.java </li>
  * <li> jlogger.logfile.prefix   "@t @c [@L]: "        See TextFormatter.java </li>
- * <li> jlogger.logfile.name     "jlog"                See FileAppender.java </li>
+ * <li> jlogger.logfile.name     "jlog.log"            See FileAppender.java </li>
  * <li> jlogger.logfile.kmaxsize "100"                 See FileAppender.java </li>
  * <li> jlogger.logfile.backups  "10"                  See FileAppender.java </li>
  * </ul>

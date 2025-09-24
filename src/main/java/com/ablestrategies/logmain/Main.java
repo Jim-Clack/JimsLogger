@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // System.setProperty("jlogger.appenders.list", "com.ablestrategies.logger.ConsoleAppender,com.ablestrategies.logger.LogfileAppender");
+        System.setProperty("jlogger.appenders.list", "com.ablestrategies.logger.ConsoleAppender,com.ablestrategies.logger.LogFileAppender");
 
         System.out.println("Starting");
 
