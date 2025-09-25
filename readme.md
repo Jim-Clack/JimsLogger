@@ -44,13 +44,13 @@ It is customizable via configuration settings or by extending classes or impleme
 
 ### Configuration Properties ###
 
- `jlogger.appenders.list___"x.y.ZzzAppender"_Comma-delimited list`     
- `jlogger.default.level____"Warn"____________See LogLevel.java`      
- `jlogger.console.prefix___"@t @c [@L]: "____See TextFormatter.java`     
- `jlogger.logfile.prefix___"@t @c [@L]: "____See TextFormatter.java`     
- `jlogger.logfile.name_____"jlog.log"________See FileAppender.java`     
- `jlogger.logfile.kmaxsize_"100"_____________See FileAppender.java`     
- `jlogger.logfile.backups__"10"______________See FileAppender.java`
+ `jlogger.appenders.list____"x.y.ZzzAppender"__Comma-delimited list`     
+ `jlogger.default.level_____"Warn"_____________See LogLevel.java`      
+ `jlogger.console.prefix____"@t @c [@L]: "_____See TextFormatter.java`     
+ `jlogger.logfile.prefix____"@t @c [@L]: "_____See TextFormatter.java`     
+ `jlogger.logfile.name______"jlog.log"_________See FileAppender.java`     
+ `jlogger.logfile.kmaxsize__"100"______________See FileAppender.java`     
+ `jlogger.logfile.backups___"10"_______________See FileAppender.java`
 
 ### Replacement Symbols ###
 
@@ -72,7 +72,7 @@ All replacement symbols begin with @, followed by (A) or (B) below
  * o     object/array dump, shallow  
  * O     object/array dump, deep (not yet implemented)  
 
-(B) The following are from the LogEvent, NOT vararg arg values  
+(B) The following are from the LogEvent, NOT vararg arg values      
 
  * l     LogLevel value  
  * L     LogLevel name  
@@ -90,7 +90,14 @@ All replacement symbols begin with @, followed by (A) or (B) below
  * p     calling package.class.method name  
  * p     calling package.class.method name (package not abbreviated)  
  * h     calling thread name  
- * @     two @-signs (@@) are escaped to a single @  
+ * @     two @-signs (@@) are escaped to a single @     
+
+Or you can use {} to substitute the "next argument" from varargs.   
+ 
+ * {} Substitutes the next argument from varargs, whatever type it is.    
+ * Do not mix this symbol with other (@) vararg symbols in a message.   
+ * However, you may mix it with other (@) non-vararg symbols.    
+ * Or you can mix the two if you put the arg number in braces: {1}, {2}, ...   
 
 Please note that...    
 
@@ -103,7 +110,8 @@ Please note that...
 ### TO-DO ###
 
  * Create an slf4j adapter   
- * Create a Log4j2Formatter (w/log4j2 symbols)   
+ * Create a Log4j2Formatter (log4j2 symbols)   
  * Write more Appenders (JSON, DB, etc.)   
  * Add some Unit Tests    
  * Roll up repeated events (Configurable)    
+ * Finish coding getObjectArgumentAsString()    

@@ -96,11 +96,10 @@ public class LogFileAppender implements IAppender {
         boolean success1 = getFilesSortedByAge(filenameWithoutSuffix, filenameSuffix, sortedFilesMap);
         boolean success2 = rolloverBackups(sortedFilesMap, filenameWithoutSuffix, filenameSuffix);
         if(!success1 || !success2) {
-            Support.handleLoggerError(true, "LogFileAppender - Error: Backup file(s) may be read-only.", null);
+            Support.handleLoggerError(true, "LogFileAppender - Error: A backup file(s) may be locked or read-only.", null);
         }
         String filename = String.format(FILE_TEMPLATE, filenameWithoutSuffix, maxBackups - 1, filenameSuffix);
-        String header = "###LogFile### " + filename + " " +
-                LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String header = "###LogFile### " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         try {
             writer = new FileWriter(filename);
             writer.write(header + System.lineSeparator());

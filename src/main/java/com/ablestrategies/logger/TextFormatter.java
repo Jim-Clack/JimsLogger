@@ -42,7 +42,14 @@ package com.ablestrategies.logger;
  * <li>  p     calling package.class.method name (package not abbreviated) </li>
  * <li>  h     calling thread name </li>
  * <li>  @     two @-signs (@@) are escaped to a single @ </li>
- * </ul>
+ * </ul> <br/>
+ * Or you can use {} to substitute the "next argument" from varargs. </li>
+ * <ul>
+ * <li>  {} Substitutes the next argument from varargs, whatever type it is. </li>
+ * <li>  Do not mix this symbol with the other (@) vararg symbols in a message. </li>
+ * <li>  However, you may mix it with other (@) non-vararg symbols. </li>
+ * <li>  Or you can mix the two if you put the arg number in braces: {1}, {2}, .... </li>
+ * </ul> <br/>
  * <h4> Please note that... </h4>
  * <ul>
  * <li>If a value is null then it will be replaced with (null)
@@ -55,6 +62,9 @@ public class TextFormatter implements ITextFormatter {
 
     /** Default prefix for all messages. */
     private String prefix;
+
+    /** For counting {} symbols in a message. */
+    private int bracesArgNum;
 
     /**
      * Ctor.
@@ -70,21 +80,17 @@ public class TextFormatter implements ITextFormatter {
      * @return The resultant textual message.
      */
     public String format(LogEvent logEvent) {
-        /** The gets the substitution values from the LogEvent. */
         LogEventStringGetter getter = new LogEventStringGetter(logEvent);
         String message = prefix + getter.getMessage();
         StringBuilder buffer = new StringBuilder();
         int messageLgt = message.length();
         int messagePos = 0;
-        int argNum = 0;
+        bracesArgNum = 1;
         while(messagePos < messageLgt) {
-            if (message.charAt(messagePos) == '@') {
-                char ch = message.charAt(++messagePos);
-                if(Character.isDigit(ch)) {
-                    argNum = ch - '0';
-                    ++messagePos;
-                }
-                buffer.append(expandSymbol(getter, message.charAt(messagePos), argNum));
+            if(message.charAt(messagePos) == '{') {
+                messagePos = substituteBraces(message, messagePos, buffer, getter);
+            } else if (message.charAt(messagePos) == '@') {
+                messagePos = substituteAtSign(message, messagePos, buffer, getter);
             } else {
                 buffer.append(message.charAt(messagePos));
             }
@@ -94,18 +100,53 @@ public class TextFormatter implements ITextFormatter {
     }
 
     /**
-     * Substitute a replacment symbol.
-     * @param getter The source of LogEvent data.
-     * @param symbol The symbol to replace.
-     * @param argNum An argument number, must be 0 for non-argument values.
-     * @return The substituted value.
+     * Handle an {} replacement symbol.
+     * @param message Source of replacement symbol
+     * @param messagePos Location of "{"} in message
+     * @param buffer To update/append to.
+     * @param getter Source of substitution data and arguments.
+     * @return updated messagePos.
+     * @apiNote Also modifies object state - member variable bracesArgNum.
      */
-    private String expandSymbol(LogEventStringGetter getter, char symbol, int argNum) {
-        if(argNum > 0) {
-            return expandMessageArg(getter, symbol, argNum);
-        } else {
-            return expandEventValue(getter, symbol);
+    private int substituteBraces(String message, int messagePos, StringBuilder buffer, LogEventStringGetter getter) {
+        char ch = message.charAt(++messagePos);
+        if(ch == '{') {
+            buffer.append("{");
+            return messagePos;
         }
+        if(Character.isDigit(ch)) {
+            bracesArgNum = ch - '0';
+            messagePos++;
+        }
+        if(message.charAt(messagePos) != '}') {
+            Support.handleLoggerError(false, "TextFormatter - Bad replacement symbol (" + message + ")", null);
+            return messagePos;
+        }
+        buffer.append(getter.getAnyTypeArgumentAsString(bracesArgNum));
+        ++bracesArgNum;
+        return messagePos;
+    }
+
+    /**
+     * Handle an @-sign replacement symbol.
+     * @param message Source of replacement symbol
+     * @param messagePos Location of @-sign in message
+     * @param buffer To update/append to.
+     * @param getter Source of substitution data and arguments.
+     * @return updated messagePos.
+     */
+    private int substituteAtSign(String message, int messagePos, StringBuilder buffer, LogEventStringGetter getter) {
+        int argNum = 0;
+        char ch = message.charAt(++messagePos);
+        if (Character.isDigit(ch)) {
+            argNum = ch - '0';
+        }
+        if(argNum > 0) {
+            buffer.append(expandMessageArg(getter, message.charAt(++messagePos), argNum));
+        } else {
+            buffer.append(expandEventValue(getter, message.charAt(++messagePos)));
+        }
+        return messagePos;
     }
 
     /**

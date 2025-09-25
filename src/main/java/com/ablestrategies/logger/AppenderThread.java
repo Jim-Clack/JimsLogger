@@ -123,10 +123,10 @@ public class AppenderThread extends Thread {
      */
     private void populateAppenderMap(IConfiguration configuration) {
         String appendersString = configuration.getString("jlogger.appenders.list", "ConsoleAppender");
-        String[] appenderClassNames = appendersString.split("[, ]");
+        String[] appenderClassNames = appendersString.split("[,]");
         for(String className : appenderClassNames) {
             try {
-                addAppenderToMap(configuration, className);
+                addAppenderToMap(configuration, className.trim());
             } catch (Exception e) {
                 if(className.endsWith("ConsoleAppender")) { // in case it is specified but cannot be found
                     appenders.put(className, new ConsoleAppender(configuration));

@@ -249,4 +249,21 @@ public class LogEventStringGetter extends LogEventTypedGetter {
         return getToStringArgumentAsString(oneBasedIndex);
     }
 
+    /**
+     * Get a varargs argument as a String regardless of its type.
+     * @param oneBasedIndex argument number (one-based)
+     * @return The String representation of the argument.
+     */
+    public String getAnyTypeArgumentAsString(int oneBasedIndex) {
+        Object arg = getArgumentAsObject(oneBasedIndex);
+        if(arg == null) {
+            return "(null)";
+        }
+        if(Throwable.class.isAssignableFrom(arg.getClass())) {
+            return getExceptionStackDumpArgumentAsString(oneBasedIndex);
+        } else {
+            return arg.toString();
+        }
+    }
+
 }

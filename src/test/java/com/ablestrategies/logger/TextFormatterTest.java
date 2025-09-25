@@ -34,11 +34,21 @@ class TextFormatterTest {
     }
 
     @org.junit.jupiter.api.Test
-    void testFormat() {
+    void testAtSymbols() {
         String message = textFormatter.format(event);
-        System.out.println("Testing TextFormatter.format (" + message + ")");
+        System.out.println("Testing TextFormatter.format testAtSymbols (" + message + ")");
         assertTrue(message.startsWith(
             "[PREFIX] ABC EXC Test 1024 -1.234 T Level[name=Diag, value=2] 20"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void testBracesSymbols() {
+        LogEvent event2 = new LogEvent(Level.Diag, "{} {} {} {} {} {7} {6}",
+                "Xyz", 123, 7.5, Level.Diag, false, new ArithmeticException("WWW"), 33);
+        String message = textFormatter.format(event2);
+        System.out.println("Testing TextFormatter.format testBracesSymbol (" + message + ")");
+        assertTrue(message.startsWith(
+                "[PREFIX] Xyz 123 7.5 Level[name=Diag, value=2] false 33 java.lang.Arithmetic"));
     }
 
 }
