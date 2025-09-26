@@ -29,7 +29,8 @@ class TextFormatterTest {
         event = new LogEvent(Level.Diag, "ABC @1e @2s @3i @4f @5b @6t @7D",
                 new ArithmeticException("EXC"), "Test", 1024, -1.234, true, Level.Diag, now);
         LogEventStringGetter getter = new LogEventStringGetter(event);
-        later = now.plusSeconds(3);
+        later = now.plusSeconds(10);
+        now = now.minusSeconds(1);
         textFormatter = new TextFormatter("[PREFIX] ");
     }
 
@@ -46,7 +47,7 @@ class TextFormatterTest {
         LogEvent event2 = new LogEvent(Level.Diag, "{} {} {} {} {} {7} {6}",
                 "Xyz", 123, 7.5, Level.Diag, false, new ArithmeticException("WWW"), 33);
         String message = textFormatter.format(event2);
-        System.out.println("Testing TextFormatter.format testBracesSymbol (" + message + ")");
+        System.out.println("Testing TextFormatter.format testBracesSymbol (" + message.substring(0, 20) + ")");
         assertTrue(message.startsWith(
                 "[PREFIX] Xyz 123 7.5 Level[name=Diag, value=2] false 33 java.lang.Arithmetic"));
     }

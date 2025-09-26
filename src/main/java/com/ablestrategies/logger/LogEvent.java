@@ -1,6 +1,7 @@
 package com.ablestrategies.logger;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 /**
  * LogEvent - Keeps track of the string, timestamp, and other info for a message to be logged.
@@ -32,6 +33,9 @@ public class LogEvent {
     /** The method that called the Logger. */
     final String methodName;
 
+    /** Used by XxxFormatters to cache results for re-use. */
+    private HashMap<String, String> formattersCache;
+
     /**
      * Ctor.
      * @param level the Level of priority/severity for this message.
@@ -47,11 +51,30 @@ public class LogEvent {
         StackTraceElement stackTraceElement = Support.getCallerStackTraceElement();
         this.className = stackTraceElement.getClassName();
         this.methodName = stackTraceElement.getMethodName();
+        this.formattersCache = new HashMap<>();
         if(arguments != null && arguments.length > 0 && arguments[0] instanceof Throwable) {
             this.throwable = (Throwable)arguments[0];
         } else {
             this.throwable = null;
         }
+    }
+
+    /**
+     * Get a previously cached result.
+     * @param formatterSignature ITextFormatter name + settings. i.e. "XxxxFormatter;[Prefix @t]:3""
+     * @return Previously cached result of same signature.
+     */
+    String getFormattersCache(String formatterSignature) {
+        return formattersCache.get(formatterSignature);
+    }
+
+    /**
+     * Add an XxxTextFormatter result cache.
+     * @param formatterSignature Formatter name + settings. i.e. "XxxxFormatter;[Prefix @t]:3""
+     * @param result Result of calling format() with this signature.
+     */
+    void putFormattersCache(String formatterSignature, String result) {
+        formattersCache.put(formatterSignature, result);
     }
 
     /**

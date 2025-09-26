@@ -34,7 +34,8 @@ class LogEventStringGetterTest {
         LogEvent event = new LogEvent(Level.Diag, "ABCDEFG @1e @2s @3h",
                 new ArithmeticException("EXC"), "Test", 1024, -1.234, true, Level.Diag, now);
         getter = new LogEventStringGetter(event);
-        later = now.plusSeconds(3);
+        later = now.plusSeconds(10);
+        now = now.minusSeconds(1);
     }
 
     @AfterEach

@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="refined readme.md, coded a Java bug (ofLocalizedTime) workaround in LogEventStringGetter.">
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Added support for {} replacement symbol. Other minor changes.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/BaseTextFormatter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ObjectDumper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/ObjectDumperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEventStringGetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventStringGetterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,6 +64,9 @@
     "JUnit.EventTest.executor": "Debug",
     "JUnit.EventTest.testToString.executor": "Debug",
     "JUnit.LogEventStringGetterTest.executor": "Debug",
+    "JUnit.ObjectDumperTest.executor": "Debug",
+    "JUnit.ObjectDumperTest.testThrowableDump.executor": "Debug",
+    "JUnit.ObjectFormatterTest.executor": "Debug",
     "JUnit.TextFormatterTest.executor": "Debug",
     "JUnit.com.ablestrategies.logger in JimsLogger.executor": "Debug",
     "JUnit.logger in JimsLogger.executor": "Debug",
@@ -93,38 +99,7 @@
       <recent name="com.ablestrategies.logger" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.logger in JimsLogger">
-    <configuration name="LogEventGetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JimsLogger" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ablestrategies.logger.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
-      <option name="MAIN_CLASS_NAME" value="com.ablestrategies.logger.LogEventGetterTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LogEventGetterTest.testToString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JimsLogger" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ablestrategies.logger.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
-      <option name="MAIN_CLASS_NAME" value="com.ablestrategies.logger.LogEventGetterTest" />
-      <option name="METHOD_NAME" value="testToString" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="LogEventStringGetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JimsLogger" />
       <extension name="coverage">
@@ -136,6 +111,37 @@
       <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
       <option name="MAIN_CLASS_NAME" value="com.ablestrategies.logger.LogEventStringGetterTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObjectDumperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JimsLogger" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ablestrategies.logger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
+      <option name="MAIN_CLASS_NAME" value="com.ablestrategies.logger.ObjectDumperTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObjectDumperTest.testThrowableDump" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JimsLogger" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ablestrategies.logger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ablestrategies.logger" />
+      <option name="MAIN_CLASS_NAME" value="com.ablestrategies.logger.ObjectDumperTest" />
+      <option name="METHOD_NAME" value="testThrowableDump" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,10 +172,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.logger in JimsLogger" />
+        <item itemvalue="JUnit.ObjectDumperTest" />
+        <item itemvalue="JUnit.ObjectDumperTest.testThrowableDump" />
         <item itemvalue="JUnit.TextFormatterTest" />
         <item itemvalue="JUnit.LogEventStringGetterTest" />
-        <item itemvalue="JUnit.LogEventGetterTest" />
-        <item itemvalue="JUnit.LogEventGetterTest.testToString" />
       </list>
     </recent_temporary>
   </component>
@@ -191,7 +197,7 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="104713000" />
+      <workItem from="1758468451225" duration="134671000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -345,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758755870924</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added support for {} replacement symbol. Other minor changes.">
+      <option name="closed" value="true" />
+      <created>1758813223744</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1758813223744</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,7 +396,8 @@
     <MESSAGE value="[COMPLETED] It would be nice to add more unit tests, and comments, and appenders. TODO: there is no slf4j API yet." />
     <MESSAGE value="[COMPLETED] Added a readme.md (further notes may be found there)" />
     <MESSAGE value="refined readme.md, coded a Java bug (ofLocalizedTime) workaround in LogEventStringGetter." />
-    <option name="LAST_COMMIT_MESSAGE" value="refined readme.md, coded a Java bug (ofLocalizedTime) workaround in LogEventStringGetter." />
+    <MESSAGE value="Added support for {} replacement symbol. Other minor changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added support for {} replacement symbol. Other minor changes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

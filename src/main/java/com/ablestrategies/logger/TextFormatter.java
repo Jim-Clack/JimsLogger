@@ -46,9 +46,10 @@ package com.ablestrategies.logger;
  * Or you can use {} to substitute the "next argument" from varargs. </li>
  * <ul>
  * <li>  {} Substitutes the next argument from varargs, whatever type it is. </li>
- * <li>  Do not mix this symbol with the other (@) vararg symbols in a message. </li>
- * <li>  However, you may mix it with other (@) non-vararg symbols. </li>
- * <li>  Or you can mix the two if you put the arg number in braces: {1}, {2}, .... </li>
+ * <li>  do not mix this symbol with the other (@) vararg symbols in a message. </li>
+ * <li>  however, you may mix it with other (@) non-vararg symbols. </li>
+ * <li>  or you can mix the two if you put the arg number in braces: {1}, {2}, .... </li>
+ * <li>  two "{" symbols "{{" are escaped to a single left brace "{". </li>
  * </ul> <br/>
  * <h4> Please note that... </h4>
  * <ul>
@@ -58,7 +59,7 @@ package com.ablestrategies.logger;
  * </ul>
  * @apiNote Class names (m, M, c, and C) include an abbreviated package prefix.
  */
-public class TextFormatter implements ITextFormatter {
+public class TextFormatter extends BaseTextFormatter implements ITextFormatter {
 
     /** Default prefix for all messages. */
     private String prefix;
@@ -75,11 +76,15 @@ public class TextFormatter implements ITextFormatter {
     }
 
     /**
-     * Perfrom the conversion - format a LogEvent as a String.
+     * Perform the conversion - format a LogEvent as a String.
      * @param logEvent To be formatted as a string message.
      * @return The resultant textual message.
      */
     public String format(LogEvent logEvent) {
+        String cache = getCachedResultIfPresent(this, prefix, "dontCare", logEvent);
+        if(cache != null) {
+            return cache;
+        }
         LogEventStringGetter getter = new LogEventStringGetter(logEvent);
         String message = prefix + getter.getMessage();
         StringBuilder buffer = new StringBuilder();
@@ -96,7 +101,9 @@ public class TextFormatter implements ITextFormatter {
             }
             messagePos++;
         }
-        return buffer.toString();
+        String result = buffer.toString();
+        cacheResult(logEvent, result);
+        return result;
     }
 
     /**
@@ -169,8 +176,8 @@ public class TextFormatter implements ITextFormatter {
             case 'e' -> getter.getExceptionMessageArgumentAsString(argNum);
             case 'E' -> getter.getExceptionStackDumpArgumentAsString(argNum);
             case 't' -> getter.getToStringArgumentAsString(argNum);
-            case 'o' -> getter.getObjectArgumentAsString(argNum, 0);
-            case 'O' -> getter.getObjectArgumentAsString(argNum, 1);
+            case 'o' -> getter.getObjectArgumentAsString(argNum, 1);
+            case 'O' -> getter.getObjectArgumentAsString(argNum, 3);
             default -> "###";
         };
     }

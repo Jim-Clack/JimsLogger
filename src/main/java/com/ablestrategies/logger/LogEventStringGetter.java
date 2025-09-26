@@ -243,10 +243,9 @@ public class LogEventStringGetter extends LogEventTypedGetter {
      * @return a String representation of the object
      */
     public String getObjectArgumentAsString(int oneBasedIndex, int depth) {
-
-        // TODO - must handle Strings, Arrays, Collections, other Objects
-
-        return getToStringArgumentAsString(oneBasedIndex);
+        ObjectDumper dumper = new ObjectDumper(depth, 5, false);
+        Object arg = getArgumentAsObject(oneBasedIndex);
+        return dumper.dump(arg, "vararg[" + oneBasedIndex + "]");
     }
 
     /**

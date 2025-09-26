@@ -4,8 +4,9 @@ This is a Java general-purpose Logger that is useful as an exercise, example, or
 It is customizable via configuration settings or by extending classes or implementing interfaces, such as:
 
  `IAppender`   
- `IConfiguration`  
- `ITextFormatter`  
+ `IConfiguration`   
+ `ITextFormatter`   
+ `BaseTextFormatter`    
  `BaseLogLevelGetter`   
 
 ### Levels:  ###
@@ -54,9 +55,9 @@ It is customizable via configuration settings or by extending classes or impleme
 
 ### Replacement Symbols ###
 
-All replacement symbols begin with @, followed by (A) or (B) below   
+All replacement symbols begin with @ or {, per (A), (B), or (C) below.   
 
-(A) 1..9  vararg parameter number (one-based) followed by...   
+(A) @ followed by vararg 1..9 then a symbol. i.e. @3d = arg 3 as decimal
 
  * s     string
  * b     boolean as T or F
@@ -72,7 +73,7 @@ All replacement symbols begin with @, followed by (A) or (B) below
  * o     object/array dump, shallow  
  * O     object/array dump, deep (not yet implemented)  
 
-(B) The following are from the LogEvent, NOT vararg arg values      
+(B) Or @ followed by a symbol. LogEvent data, NOT vararg. i.e. @d = date      
 
  * l     LogLevel value  
  * L     LogLevel name  
@@ -92,12 +93,13 @@ All replacement symbols begin with @, followed by (A) or (B) below
  * h     calling thread name  
  * @     two @-signs (@@) are escaped to a single @     
 
-Or you can use {} to substitute the "next argument" from varargs.   
+(C) Use {} to substitute "next argument" from varargs. i.e. {} = next arg  
  
- * {} Substitutes the next argument from varargs, whatever type it is.    
- * Do not mix this symbol with other (@) vararg symbols in a message.   
- * However, you may mix it with other (@) non-vararg symbols.    
- * Or you can mix the two if you put the arg number in braces: {1}, {2}, ...   
+ * {} substitutes the next argument from varargs, whatever type it is.    
+ * do not mix this symbol with other (@) vararg symbols in a message.   
+ * however, you may mix it with other (@) non-vararg symbols.    
+ * or you can mix the two if you put the arg number in braces: {1}, {2}...
+ * two "{" symbols "{{" are escaped to a single left braca "{".
 
 Please note that...    
 
@@ -107,11 +109,26 @@ Please note that...
  * Some symbols have a different meaning when used with an arg#  
  * Class names (m, M, c, and C) include an abbreviated package prefix   
 
-### TO-DO ###
+### Notes ###
+
+As a performance consideration, messages will not even be formatted from 
+events unless they are at the unfiltered Level (i.e. Diag) of a Logger.  
+
+If more than one appender formats an event with the same Formatter settings,
+the event will be formatted only once for all of them.  
+
+Events are written by a background thread to improve front-end performance
+and to guarantee that they get flushed in the event of a crash.  
+
+Because of this (above) the values of some logged arguments might be changed
+by your app before they get logged, logging slightly stale data.  
+
+### To Do ###
 
  * Create an slf4j adapter   
  * Create a Log4j2Formatter (log4j2 symbols)   
  * Write more Appenders (JSON, DB, etc.)   
  * Add some Unit Tests    
  * Roll up repeated events (Configurable)    
- * Finish coding getObjectArgumentAsString()    
+ * Finish coding getObjectArgumentAsString()
+ * Internationalization, esp literal strings
