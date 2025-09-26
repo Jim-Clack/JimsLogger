@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ObjectDumperTest {
 
-    boolean diag = true;
+    boolean diag = false;
 
     ObjectDumper dumper = new ObjectDumper(3, 5, false);
 
