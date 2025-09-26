@@ -37,7 +37,7 @@ public class Main {
         logger2.DIAG("Logger2 (@1s=@2s) 2a - it should log, even though it did not before", logger2.getPackageClassName(), logger2.getLevel().name());
         logger4.DIAG("Logger4 (@1s=@2s) 4a - it should log, even though it did not before", logger4.getPackageClassName(), logger4.getLevel().name());
 
-        // Create a new Logger to verify that the prior setLevel() calls still applu to it
+        // Create a new Logger to verify that the prior setLevel() calls will still apply to it.
         Logger logger5 = LogManager.getInstance().getLogger(); // this
         logger5.DIAG("Logger5 (@1s=@2s) 5b - it should log", logger5.getPackageClassName(), logger5.getLevel().name());
 

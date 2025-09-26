@@ -71,7 +71,7 @@ All replacement symbols begin with @ or {, per (A), (B), or (C) below.
  * E     exception message and trace  
  * t     object toString()  
  * o     object/array dump, shallow  
- * O     object/array dump, deep (not yet implemented)  
+ * O     object/array dump, deep    
 
 (B) Or @ followed by a symbol. LogEvent data, NOT vararg. i.e. @d = date      
 
@@ -103,11 +103,11 @@ All replacement symbols begin with @ or {, per (A), (B), or (C) below.
 
 Please note that...    
 
- * If a value is null then typically it will be replaced with (null)  
- * If a value is cannot be processed then it will be replaced with ###  
- * If a symbol is corrupt then it will be replaced with ???   
- * Some symbols have a different meaning when used with an arg#  
- * Class names (m, M, c, and C) include an abbreviated package prefix   
+If a value is null then typically it will be replaced with (null).      
+If a value is cannot be processed then it will be replaced with ###.      
+If a symbol is corrupt then it will be replaced with ???.   
+Some symbols have a different meaning when used with an arg#.  
+Class names (m, M, c, and C) include an abbreviated package prefix.     
 
 ### Notes ###
 
