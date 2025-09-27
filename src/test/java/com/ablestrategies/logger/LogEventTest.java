@@ -19,7 +19,6 @@ class LogEventTest {
         } while (now.getSecond() > 57);
         // create the event now
         event = new LogEvent(Level.Diag, "ABCDEFG", new ArithmeticException("EXC"));
-        now = now.minusSeconds(1);
     }
 
     @org.junit.jupiter.api.Test

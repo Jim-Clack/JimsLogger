@@ -34,7 +34,7 @@ public class LogEvent {
     final String methodName;
 
     /** Used by XxxFormatters to cache results for re-use. */
-    private HashMap<String, String> formattersCache;
+    private final HashMap<String, String> formattersCache;
 
     /**
      * Ctor.

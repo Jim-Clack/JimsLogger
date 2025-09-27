@@ -22,31 +22,31 @@ It is customizable via configuration settings or by extending classes or impleme
  `Logger.log(level, message);`        
  `Logger.log(level, message, exception);`      
  `Logger.log(level, message, vararg, ... vararg);`      
- `TRACE(message);`      
- `TRACE(message, exception);`     
- `TRACE(message, vararg, ... vararg);`      
- `DIAG( ... );`      
- `INFO( ... );`      
- `WARN( ... );`      
- `ERROR( ... );`  
+ `Logger.TRACE(message);`      
+ `Logger.TRACE(message, exception);`     
+ `Logger.TRACE(message, vararg, ... vararg);`      
+ `Logger.DIAG( ... );`      
+ `Logger.INFO( ... );`      
+ `Logger.WARN( ... );`      
+ `Logger.ERROR( ... );`  
 
 ### LogManager Methods:  ###
 
- `getInstance();            // static (singleton)`
-
+ `getInstance();            // static (singleton)`   
+  
  `getLogger();              // for current class`    
  `getLogger(Xyz.class);     // for specified class`      
  `getLogger("x.y.Z");       // for specified class`   
  `getLogger("issue321");    // specialized logging`
-
+  
  `setLevel(level, "x.y.Z"); // for specified class`    
  `setLevel(level, "x.y")    // all classes in x.y`   
  `setLevel(level, "");      // for all classes`
-
+  
 ### Configuration Properties ###
 
  `jlogger.appenders.list____"x.y.ZzzAppender"__Comma-delimited list`     
- `jlogger.default.level_____"Warn"_____________See LogLevel.java`      
+ `jlogger.default.level_____"Warn"_____________See Level.java`      
  `jlogger.console.prefix____"@t @c [@L]: "_____See TextFormatter.java`     
  `jlogger.logfile.prefix____"@t @c [@L]: "_____See TextFormatter.java`     
  `jlogger.logfile.name______"jlog.log"_________See FileAppender.java`     
@@ -101,11 +101,11 @@ All replacement symbols begin with @ or {, per (A), (B), or (C) below.
  * or you can mix the two if you put the arg number in braces: {1}, {2}...
  * two "{" symbols "{{" are escaped to a single left braca "{".
 
-Please note that...    
-
-If a value is null then typically it will be replaced with (null).      
-If a value is cannot be processed then it will be replaced with ###.      
-If a symbol is corrupt then it will be replaced with ???.   
+Regarding symbol replacement...    
+    
+If a value is null then typically it will be replaced with "(null)".      
+If a value is cannot be processed then it will be replaced with "###".      
+If a symbol is corrupt then it will be replaced with "???".   
 Some symbols have a different meaning when used with an arg#.  
 Class names (m, M, c, and C) include an abbreviated package prefix.     
 
@@ -120,15 +120,13 @@ the event will be formatted only once for all of them.
 Events are written by a background thread to improve front-end performance
 and to guarantee that they get flushed in the event of a crash.  
 
-Because of this (above) the values of some logged arguments might be changed
+Because of this (previous) the values of some logged arguments might be changed
 by your app before they get logged, logging slightly stale data.  
 
 ### To Do ###
 
  * Create an slf4j adapter   
- * Create a Log4j2Formatter (log4j2 symbols)   
+ * Create a Log4j2Formatter (log4j2 symbols)      
  * Write more Appenders (JSON, DB, etc.)   
- * Add some Unit Tests    
  * Roll up repeated events (Configurable)    
- * Finish coding getObjectArgumentAsString()
- * Internationalization, esp literal strings
+ * Internationalize literal strings    

@@ -62,7 +62,7 @@ package com.ablestrategies.logger;
 public class TextFormatter extends BaseTextFormatter implements ITextFormatter {
 
     /** Default prefix for all messages. */
-    private String prefix;
+    private final String prefix;
 
     /** For counting {} symbols in a message. */
     private int bracesArgNum;

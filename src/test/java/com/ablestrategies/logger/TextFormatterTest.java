@@ -11,7 +11,6 @@ class TextFormatterTest {
     private TextFormatter textFormatter;
     private LogEvent event;
     private LocalDateTime now;
-    private LocalDateTime later;
 
     @BeforeEach
     void setUp() {
@@ -28,8 +27,6 @@ class TextFormatterTest {
         // create the event now
         event = new LogEvent(Level.Diag, "ABC @1e @2s @3i @4f @5b @6t @7D",
                 new ArithmeticException("EXC"), "Test", 1024, -1.234, true, Level.Diag, now);
-        LogEventStringGetter getter = new LogEventStringGetter(event);
-        later = now.plusSeconds(10);
         now = now.minusSeconds(1);
         textFormatter = new TextFormatter("[PREFIX] ");
     }

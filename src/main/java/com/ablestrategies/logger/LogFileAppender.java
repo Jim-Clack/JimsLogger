@@ -119,6 +119,7 @@ public class LogFileAppender implements IAppender {
      * @param sortedFilesMap (out) To be populated with sorted files by this method.
      * @return Success, false if there is a problem renaming files.
      */
+    @SuppressWarnings("unused")
     private boolean getFilesSortedByAge(String filenameWithoutSuffix, String filenameSuffix, SortedMap<Long, File> sortedFilesMap) {
         boolean success = true;
         for(int backupNumber = 0; backupNumber < maxBackups; backupNumber++) {
@@ -146,13 +147,13 @@ public class LogFileAppender implements IAppender {
      * @param filenameSuffix suffix, preceded by a dot.
      * @return Success, false if there is a problem renaming files.
      */
+    @SuppressWarnings("unused")
     private boolean rolloverBackups(SortedMap<Long, File> sortedFilesMap, String filenameWithoutSuffix, String filenameSuffix) {
         boolean success = true;
-        String newFilename = "";
         File[] sortedFiles = sortedFilesMap.sequencedValues().toArray(new File[0]);
         for(int fileNumber = 1; fileNumber < maxBackups; fileNumber++) {
             File theFile = sortedFiles[fileNumber];
-            newFilename = String.format("%s%03d%s", filenameWithoutSuffix, fileNumber - 1, filenameSuffix);
+            String newFilename = String.format("%s%03d%s", filenameWithoutSuffix, fileNumber - 1, filenameSuffix);
             if(theFile.exists()) {
                 File renameTo = new File(newFilename);
                 renameTo.delete(); // just in case

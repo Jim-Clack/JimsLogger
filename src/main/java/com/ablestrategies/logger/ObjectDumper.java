@@ -15,13 +15,13 @@ public class ObjectDumper {
     private StringBuilder buffer;
 
     /** How deep to recurse. */
-    private int maxDepthRecursion = 3;
+    private final int maxDepthRecursion;
 
     /** Max array/collection/map elements to dump. */
-    private int maxElementsPerArray = 5;
+    private final int maxElementsPerArray;
 
     /** true to dump statics, inaccessibles, etc. */
-    private boolean showEverything = false;
+    private final boolean showEverything;
 
     /** Keep track of previously-dumped objects, so we don't have infinite recursion. */
     private HashSet<Object> visited;
@@ -253,7 +253,7 @@ public class ObjectDumper {
             Field[] inheritedFields = clazz.getFields();
             allFields.addAll(Arrays.stream(inheritedFields).toList());
         }
-        return (Field[])allFields.toArray(new Field[0]);
+        return allFields.toArray(new Field[0]);
     }
 
     /**
