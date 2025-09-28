@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Minor refinement, mostly in comments.">
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Eliminated some warnings. Updated some comments.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ObjectDumper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ObjectDumper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/TextFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/LogEventTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ablestrategies/logger/TextFormatterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,18 +30,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Jim-Clack"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Jim-Clack&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Jim-Clack/JimsLogger.git",
-    "accountId": "ca7e9aa5-f7c2-4e41-ad4c-49273b01a703"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Jim-Clack/JimsLogger.git&quot;,
+    &quot;accountId&quot;: &quot;ca7e9aa5-f7c2-4e41-ad4c-49273b01a703&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -69,6 +67,7 @@
     "JUnit.logger in JimsLogger.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
@@ -96,7 +95,7 @@
       <recent name="com.ablestrategies.logger" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.logger in JimsLogger">
+  <component name="RunManager">
     <configuration name="LogEventStringGetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JimsLogger" />
       <extension name="coverage">
@@ -194,7 +193,8 @@
       <workItem from="1758403828940" duration="16880000" />
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
-      <workItem from="1758468451225" duration="140845000" />
+      <workItem from="1758468451225" duration="140944000" />
+      <workItem from="1759075076596" duration="1063000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -380,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758917977430</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Eliminated some warnings. Updated some comments.">
+      <option name="closed" value="true" />
+      <created>1758974051024</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1758974051024</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +429,8 @@
     <MESSAGE value="Now offers recursive object/array/list/map output." />
     <MESSAGE value="Turned off diag flag in ObjectDumperTest." />
     <MESSAGE value="Minor refinement, mostly in comments." />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor refinement, mostly in comments." />
+    <MESSAGE value="Eliminated some warnings. Updated some comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Eliminated some warnings. Updated some comments." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

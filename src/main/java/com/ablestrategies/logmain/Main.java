@@ -2,6 +2,9 @@ package com.ablestrategies.logmain;
 
 import com.ablestrategies.logger.*;
 
+/**
+ * Main program to test JimsLogger.
+ */
 public class Main {
 
     public static void main(String[] args) {

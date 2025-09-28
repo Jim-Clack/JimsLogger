@@ -55,7 +55,7 @@ It is customizable via configuration settings or by extending classes or impleme
 
 ### Replacement Symbols ###
 
-All replacement symbols begin with @ or {, per (A), (B), or (C) below.   
+All replacement symbols begin with "@" or "{" - per (A), (B), or (C) below.   
 
 (A) @ followed by vararg 1..9 then a symbol. i.e. @3d = arg 3 as decimal
 
@@ -99,7 +99,7 @@ All replacement symbols begin with @ or {, per (A), (B), or (C) below.
  * do not mix this symbol with other (@) vararg symbols in a message.   
  * however, you may mix it with other (@) non-vararg symbols.    
  * or you can mix the two if you put the arg number in braces: {1}, {2}...
- * two "{" symbols "{{" are escaped to a single left braca "{".
+ * two brace symbols ("{{") are escaped to a single left braca "{".
 
 Regarding symbol replacement...    
     

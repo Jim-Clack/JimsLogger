@@ -21,7 +21,7 @@ public class LogFileAppender implements IAppender {
 
     private static final String FILE_TEMPLATE = "%s%03d%s";
 
-    private static final int FLUSH_EVERY = 20;
+    private static final int FLUSH_EVERY = 50;
 
     /** We need this to format LogEvents into textual messages. */
     private final TextFormatter textFormatter;
@@ -119,7 +119,6 @@ public class LogFileAppender implements IAppender {
      * @param sortedFilesMap (out) To be populated with sorted files by this method.
      * @return Success, false if there is a problem renaming files.
      */
-    @SuppressWarnings("unused")
     private boolean getFilesSortedByAge(String filenameWithoutSuffix, String filenameSuffix, SortedMap<Long, File> sortedFilesMap) {
         boolean success = true;
         for(int backupNumber = 0; backupNumber < maxBackups; backupNumber++) {
@@ -147,7 +146,6 @@ public class LogFileAppender implements IAppender {
      * @param filenameSuffix suffix, preceded by a dot.
      * @return Success, false if there is a problem renaming files.
      */
-    @SuppressWarnings("unused")
     private boolean rolloverBackups(SortedMap<Long, File> sortedFilesMap, String filenameWithoutSuffix, String filenameSuffix) {
         boolean success = true;
         File[] sortedFiles = sortedFilesMap.sequencedValues().toArray(new File[0]);

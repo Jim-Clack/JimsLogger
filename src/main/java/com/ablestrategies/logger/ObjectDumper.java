@@ -216,26 +216,36 @@ public class ObjectDumper {
         Class<?> clazz = object.getClass();
         Field[] fields = getFields(clazz);
         for(Field field : fields) {
-            boolean isSynthetic = field.isSynthetic();
-            boolean isEnumConstant = field.isEnumConstant();
-            boolean isStatic = (field.getModifiers() & Modifier.STATIC) != 0;
-            boolean isPublic = (field.getModifiers() & Modifier.PUBLIC) != 0;
-            String name = "Unknown";
-            if(!(isSynthetic || isEnumConstant || (isStatic && !showEverything))) {
-                try {
-                    field.setAccessible(true);
-                    name = field.getName();
-                    if(isStatic) {
-                        name = name + " (static)";
-                    }
-                    if(isPublic) {
-                        name = name + " (public)";
-                    }
-                    dumpRecursively(field.get(object), name, currentDepth + 1);
-                } catch (InaccessibleObjectException | IllegalAccessException e) {
-                    if(showEverything) {
-                        append(name + " (not accessible)", currentDepth + 1, true);
-                    }
+            dumpField(object, field, currentDepth);
+        }
+    }
+
+    /**
+     * Dump one field of an object.
+     * @param object The object containing the field.
+     * @param field The Field to be dumped.
+     * @param currentDepth Current recursion depth.
+     */
+    private void dumpField(Object object, Field field, int currentDepth) {
+        boolean isSynthetic = field.isSynthetic();
+        boolean isEnumConstant = field.isEnumConstant();
+        boolean isStatic = (field.getModifiers() & Modifier.STATIC) != 0;
+        boolean isPublic = (field.getModifiers() & Modifier.PUBLIC) != 0;
+        String name = "Unknown";
+        if(!(isSynthetic || isEnumConstant || (isStatic && !showEverything))) {
+            try {
+                field.setAccessible(true);
+                name = field.getName();
+                if(isStatic) {
+                    name = name + " (static)";
+                }
+                if(isPublic) {
+                    name = name + " (public)";
+                }
+                dumpRecursively(field.get(object), name, currentDepth + 1);
+            } catch (InaccessibleObjectException | IllegalAccessException e) {
+                if(showEverything) {
+                    append(name + " (not accessible)", currentDepth + 1, true);
                 }
             }
         }

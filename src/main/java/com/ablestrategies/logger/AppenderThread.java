@@ -3,8 +3,8 @@ package com.ablestrategies.logger;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * AppenderThread - Background thread that dequeues events and calls the Appenders.<br/>
@@ -49,7 +49,7 @@ public class AppenderThread extends Thread {
     public AppenderThread(IConfiguration configuration) {
         setName("JLogger-Appenders");
         populateAppenderMap(configuration);
-        blockingQueue = new ArrayBlockingQueue<>(128);
+        blockingQueue = new LinkedBlockingDeque<>();
         appenderThread = this;
     }
 
@@ -174,7 +174,7 @@ public class AppenderThread extends Thread {
                     "Logger shutting down after dequeuing " + blockingQueue.size() + " events"));
             while(!blockingQueue.isEmpty()) {
                 try {
-                    LogEvent event = blockingQueue.take(); // flush queue
+                    LogEvent event = blockingQueue.take();
                     writeToAppenders(event);
                 } catch (InterruptedException e) {
                     Support.handleLoggerError(false, "AppenderThread interrupted", null);
