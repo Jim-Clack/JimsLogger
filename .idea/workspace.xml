@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Eliminated some warnings. Updated some comments.">
+    <list default="true" id="a9bf5bac-cbda-4a5f-9232-dc316fea2fc7" name="Changes" comment="Minor tweaks. Updated some comments.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/AppenderThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/LogFileAppender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ObjectDumper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logger/ObjectDumper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ablestrategies/logmain/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,36 +50,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Debug",
-    "JUnit.EventTest.executor": "Debug",
-    "JUnit.EventTest.testToString.executor": "Debug",
-    "JUnit.LogEventStringGetterTest.executor": "Debug",
-    "JUnit.ObjectDumperTest.executor": "Debug",
-    "JUnit.ObjectDumperTest.testThrowableDump.executor": "Debug",
-    "JUnit.ObjectFormatterTest.executor": "Debug",
-    "JUnit.TextFormatterTest.executor": "Debug",
-    "JUnit.com.ablestrategies.logger in JimsLogger.executor": "Debug",
-    "JUnit.logger in JimsLogger.executor": "Debug",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/jimcl/IdeaProjects/JimsLogger",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/jimcl/IdeaProjects/JimsLogger/src/main/java/com/ablestrategies/logger/Main.java",
-    "settings.editor.selected.configurable": "preferences.intentionPowerPack",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.EventTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.EventTest.testToString.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.LogEventStringGetterTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ObjectDumperTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ObjectDumperTest.testThrowableDump.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ObjectFormatterTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TextFormatterTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.com.ablestrategies.logger in JimsLogger.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.logger in JimsLogger.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jimcl/IdeaProjects/JimsLogger&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/jimcl/IdeaProjects/JimsLogger/src/main/java/com/ablestrategies/logger/Main.java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.intentionPowerPack&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -95,7 +92,7 @@
       <recent name="com.ablestrategies.logger" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.LogEventStringGetterTest">
     <configuration name="LogEventStringGetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JimsLogger" />
       <extension name="coverage">
@@ -194,7 +191,8 @@
       <workItem from="1758467882537" duration="387000" />
       <workItem from="1758468317579" duration="70000" />
       <workItem from="1758468451225" duration="140944000" />
-      <workItem from="1759075076596" duration="1063000" />
+      <workItem from="1759075076596" duration="1815000" />
+      <workItem from="1759414071875" duration="561000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit - Added code to create a ConsoleJAppender unconditionally, added tests in Main(), some refinement. Does not shut down AppenderThread yet either">
       <option name="closed" value="true" />
@@ -388,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758974051024</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Minor tweaks. Updated some comments.">
+      <option name="closed" value="true" />
+      <created>1759076182814</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1759076182814</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,7 +436,8 @@
     <MESSAGE value="Turned off diag flag in ObjectDumperTest." />
     <MESSAGE value="Minor refinement, mostly in comments." />
     <MESSAGE value="Eliminated some warnings. Updated some comments." />
-    <option name="LAST_COMMIT_MESSAGE" value="Eliminated some warnings. Updated some comments." />
+    <MESSAGE value="Minor tweaks. Updated some comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor tweaks. Updated some comments." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

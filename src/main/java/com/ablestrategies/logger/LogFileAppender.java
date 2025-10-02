@@ -90,19 +90,12 @@ public class LogFileAppender implements IAppender {
             }
             writer = null;
         }
-        java.util.SortedMap<Long, File> sortedFilesMap = new java.util.TreeMap<>();
-        String filenameWithoutSuffix = rootFilename.substring(0, rootFilename.lastIndexOf("."));
-        String filenameSuffix = rootFilename.substring(rootFilename.lastIndexOf("."));
-        boolean success1 = getFilesSortedByAge(filenameWithoutSuffix, filenameSuffix, sortedFilesMap);
-        boolean success2 = rolloverBackups(sortedFilesMap, filenameWithoutSuffix, filenameSuffix);
-        if(!success1 || !success2) {
-            Support.handleLoggerError(true, "LogFileAppender - Error: A backup file(s) may be locked or read-only.", null);
-        }
-        String filename = String.format(FILE_TEMPLATE, filenameWithoutSuffix, maxBackups - 1, filenameSuffix);
+        String filename = rolloverBackups();
         String header = "###LogFile### " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         try {
             writer = new FileWriter(filename);
             writer.write(header + System.lineSeparator());
+            System.out.println("LogfileAppender writing to: " + filename);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -110,6 +103,22 @@ public class LogFileAppender implements IAppender {
         if(shutdownInProgress) {
             Support.handleLoggerError(false, "LogFileAppender - Shutdown may have lost events.", null);
         }
+    }
+
+    /**
+     * Handle rollover of logfile backups.
+     * @return new "latest" filename,
+     */
+    private String rolloverBackups() {
+        SortedMap<Long, File> sortedFilesMap = new java.util.TreeMap<>();
+        String filenameWithoutSuffix = rootFilename.substring(0, rootFilename.lastIndexOf("."));
+        String filenameSuffix = rootFilename.substring(rootFilename.lastIndexOf("."));
+        boolean success1 = getFilesSortedByAge(filenameWithoutSuffix, filenameSuffix, sortedFilesMap);
+        boolean success2 = rolloverBackups(sortedFilesMap, filenameWithoutSuffix, filenameSuffix);
+        if(!success1 || !success2) {
+            Support.handleLoggerError(true, "LogFileAppender - Error: A backup file(s) may be locked or read-only.", null);
+        }
+        return String.format(FILE_TEMPLATE, filenameWithoutSuffix, maxBackups - 1, filenameSuffix);
     }
 
     /**

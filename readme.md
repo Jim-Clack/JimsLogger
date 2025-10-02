@@ -125,7 +125,7 @@ by your app before they get logged, logging slightly stale data.
 
 ### To Do ###
 
- * Create an slf4j adapter   
+ * Create an slf4j provider   
  * Create a Log4j2Formatter (log4j2 symbols)      
  * Write more Appenders (JSON, DB, etc.)   
  * Roll up repeated events (Configurable)    
